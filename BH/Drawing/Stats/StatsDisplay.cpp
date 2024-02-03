@@ -15,11 +15,11 @@
 
 using namespace Drawing;
 
-const DWORD kWolfTxtFileNoAlias = 139;
-const DWORD kBearTxtFileNoAlias = 140;
-const DWORD kDruidOneHandFHRAlias = 141;
-const DWORD kPaladinSpearStaveFHRAlias = 142;
-const DWORD kSorceressLightningFCRAlias = 143;
+const int kWolfTxtFileNoAlias = 139;
+const int kBearTxtFileNoAlias = 140;
+const int kDruidOneHandFHRAlias = 141;
+const int kPaladinSpearStaveFHRAlias = 142;
+const int kSorceressLightningFCRAlias = 143;
 
 std::map<DWORD, std::vector<int>> faster_hit_recovery_frames = {
 	{ CLASS_AMA, { 6, 13, 20, 32, 52, 86, 174, 600 } },
