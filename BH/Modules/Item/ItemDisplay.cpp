@@ -29,18 +29,18 @@
 // For ignoring size
 std::vector<std::string> colorreps =
 {
-	"ÿc0",
-	"ÿc1",
-	"ÿc2",
-	"ÿc3",
-	"ÿc4",
-	"ÿc5",
-	"ÿc6",
-	"ÿc7",
-	"ÿc8",
-	"ÿc9",
-	"ÿc;",
-	"ÿc:",
+	"\xFF""c0",
+	"\xFF""c1",
+	"\xFF""c2",
+	"\xFF""c3",
+	"\xFF""c4",
+	"\xFF""c5",
+	"\xFF""c6",
+	"\xFF""c7",
+	"\xFF""c8",
+	"\xFF""c9",
+	"\xFF""c;",
+	"\xFF""c:",
 	"\xFF""c\x06",
 	"\xFF""c\x07",
 	"\xFF""c\x09",
@@ -49,18 +49,18 @@ std::vector<std::string> colorreps =
 
 // All colors here must also be defined in MAP_COLOR_REPLACEMENTS
 #define COLOR_REPLACEMENTS	\
-	{"WHITE", "ÿc0"},		\
-	{"RED", "ÿc1"},			\
-	{"GREEN", "ÿc2"},		\
-	{"BLUE", "ÿc3"},		\
-	{"GOLD", "ÿc4"},		\
-	{"GRAY", "ÿc5"},		\
-	{"BLACK", "ÿc6"},		\
-	{"TAN", "ÿc7"},			\
-	{"ORANGE", "ÿc8"},		\
-	{"YELLOW", "ÿc9"},		\
-	{"PURPLE", "ÿc;"},		\
-	{"DARK_GREEN", "ÿc:"},	\
+	{"WHITE", "\xFF""c0"},		\
+	{"RED", "\xFF""c1"},		\
+	{"GREEN", "\xFF""c2"},		\
+	{"BLUE", "\xFF""c3"},		\
+	{"GOLD", "\xFF""c4"},		\
+	{"GRAY", "\xFF""c5"},		\
+	{"BLACK", "\xFF""c6"},		\
+	{"TAN", "\xFF""c7"},		\
+	{"ORANGE", "\xFF""c8"},		\
+	{"YELLOW", "\xFF""c9"},		\
+	{"PURPLE", "\xFF""c;"},		\
+	{"DARK_GREEN", "\xFF""c:"},	\
 	{"CORAL", "\xFF" "c\x06"},		\
 	{"SAGE", "\xFF" "c\x07"},		\
 	{"TEAL", "\xFF" "c\x09"},		\
