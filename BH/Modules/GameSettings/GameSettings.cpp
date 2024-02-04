@@ -17,25 +17,25 @@ void GameSettings::Init() {
 }
 
 void GameSettings::LoadConfig() {
-	BH::config->ReadToggle("Quick Cast", "None", false, GameSettings::Toggles["Quick Cast"]);
-	BH::config->ReadToggle("Skill Bar", "None", false, GameSettings::Toggles["Skill Bar"]);
-	BH::config->ReadToggle("Skill Bar Disable", "None", false, GameSettings::Toggles["Skill Bar Disable"]);
-	BH::config->ReadToggle("Buff Timers", "None", false, GameSettings::Toggles["Buff Timers"]);
-	BH::config->ReadToggle("Screenshake", "None", true, GameSettings::Toggles["Screenshake"]);
-	BH::config->ReadToggle("DPS", "None", false, GameSettings::Toggles["DPS"]);
-	BH::config->ReadToggle("Belt Status", "None", true, GameSettings::Toggles["Belt Status"]);
+	BH::config->ReadToggle(L"Quick Cast", L"None", false, GameSettings::Toggles["Quick Cast"]);
+	BH::config->ReadToggle(L"Skill Bar", L"None", false, GameSettings::Toggles["Skill Bar"]);
+	BH::config->ReadToggle(L"Skill Bar Disable", L"None", false, GameSettings::Toggles["Skill Bar Disable"]);
+	BH::config->ReadToggle(L"Buff Timers", L"None", false, GameSettings::Toggles["Buff Timers"]);
+	BH::config->ReadToggle(L"Screenshake", L"None", true, GameSettings::Toggles["Screenshake"]);
+	BH::config->ReadToggle(L"DPS", L"None", false, GameSettings::Toggles["DPS"]);
+	BH::config->ReadToggle(L"Belt Status", L"None", true, GameSettings::Toggles["Belt Status"]);
 
-	BH::config->ReadToggle("Developer Aura", "None", true, GameSettings::Toggles["Developer Aura"]);
-	BH::config->ReadToggle("99 Aura", "None", true, GameSettings::Toggles["99 Aura"]);
-	BH::config->ReadToggle("Rathma Aura", "None", true, GameSettings::Toggles["Rathma Aura"]);
-	BH::config->ReadToggle("Dclone Aura", "None", true, GameSettings::Toggles["Dclone Aura"]);
-	BH::config->ReadToggle("PVP Aura", "None", true, GameSettings::Toggles["PVP Aura"]);
+	BH::config->ReadToggle(L"Developer Aura", L"None", true, GameSettings::Toggles["Developer Aura"]);
+	BH::config->ReadToggle(L"99 Aura", L"None", true, GameSettings::Toggles["99 Aura"]);
+	BH::config->ReadToggle(L"Rathma Aura", L"None", true, GameSettings::Toggles["Rathma Aura"]);
+	BH::config->ReadToggle(L"Dclone Aura", L"None", true, GameSettings::Toggles["Dclone Aura"]);
+	BH::config->ReadToggle(L"PVP Aura", L"None", true, GameSettings::Toggles["PVP Aura"]);
 
-	BH::config->ReadKey("Show Players Gear", "VK_0", showPlayer);
-	BH::config->ReadKey("Resync Hotkey", "VK_9", resyncKey);
-	BH::config->ReadKey("Character Stats", "VK_8", advStatMenuKey);
-	BH::config->ReadKey("Reload Config", "VK_NUMPAD0", reloadConfig);
-	BH::config->ReadKey("Reload Config Ctrl", "VK_R", reloadConfigCtrl);
+	BH::config->ReadKey(L"Show Players Gear", L"VK_0", showPlayer);
+	BH::config->ReadKey(L"Resync Hotkey", L"VK_9", resyncKey);
+	BH::config->ReadKey(L"Character Stats", L"VK_8", advStatMenuKey);
+	BH::config->ReadKey(L"Reload Config", L"VK_NUMPAD0", reloadConfig);
+	BH::config->ReadKey(L"Reload Config Ctrl", L"VK_R", reloadConfigCtrl);
 }
 
 void GameSettings::LoadGeneralTab() {

@@ -23,11 +23,11 @@
 struct UnitItemInfo
 {
 	UnitAny* item;
-	char            itemCode[5];
+	wchar_t         itemCode[5];
 	ItemAttributes* attrs;
 };
 
-extern std::map<std::string, int> UnknownItemCodes;
+extern std::map<std::wstring, int> UnknownItemCodes;
 
 enum ConditionType
 {
@@ -50,7 +50,7 @@ public:
 	{
 	}
 
-	static const string tokenDelims;
+	static const wstring tokenDelims;
 	static void         BuildConditions(vector<Condition*>& conditions,
 		wstring              token);
 	static void ProcessConditions(vector<Condition*>& rawConditions,
@@ -146,7 +146,7 @@ private:
 class ItemCodeCondition : public Condition
 {
 public:
-	ItemCodeCondition(const char* code)
+	ItemCodeCondition(const wchar_t* code)
 	{
 		targetCode[0] = code[0];
 		targetCode[1] = code[1];
@@ -624,8 +624,8 @@ private:
 	BYTE                     operation;
 	unsigned int             type;
 	unsigned int             targetStat;
-	std::map<string, string> classSkillList;
-	std::map<string, string> skillList;
+	std::map<wstring, wstring> classSkillList;
+	std::map<wstring, wstring> skillList;
 	vector<unsigned int>     goodClassSkills;
 	vector<unsigned int>     goodTabSkills;
 	void                     Init();
@@ -766,7 +766,7 @@ private:
 class AddCondition : public Condition
 {
 public:
-	AddCondition(string& k,
+	AddCondition(wstring& k,
 		BYTE         op,
 		unsigned int target) : key(k),
 		operation(op),
@@ -777,10 +777,10 @@ public:
 	};
 private:
 	BYTE           operation;
-	vector<string> codes;
+	vector<wstring> codes;
 	vector<DWORD>  stats;
 	unsigned int   targetStat;
-	string         key;
+	wstring         key;
 	void           Init();
 	bool           EvaluateInternal(UnitItemInfo* uInfo,
 		Condition* arg1,
@@ -931,7 +931,7 @@ public:
 extern vector<Rule*>                RuleList;
 extern vector<Rule*>                MapRuleList;
 extern vector<Rule*>                IgnoreRuleList;
-extern vector<pair<string, string>> rules;
+extern vector<pair<wstring, wstring>> rules;
 extern ItemDescLookupCache          item_desc_cache;
 extern ItemNameLookupCache          item_name_cache;
 extern MapActionLookupCache         map_action_cache;
@@ -942,15 +942,15 @@ namespace ItemDisplay
 	void UninitializeItemRules();
 }
 
-void            BuildAction(string* str,
+void            BuildAction(wstring* str,
 	Action* act);
-int ParsePingLevel(Action* act, const string& reg_string);
-string ParseDescription(Action* act);
+int ParsePingLevel(Action* act, const wstring& reg_string);
+wstring ParseDescription(Action* act);
 int    ParseMapColor(Action* act,
-	const string& reg_string);
-void HandleUnknownItemCode(char* code,
-	char* tag);
-BYTE        GetOperation(string* op);
+	const wstring& reg_string);
+void HandleUnknownItemCode(wchar_t* code,
+	wchar_t* tag);
+BYTE        GetOperation(wstring* op);
 inline bool IntegerCompare(int Lvalue,
 	int          operation,
 	int Rvalue);
@@ -962,11 +962,12 @@ void SubstituteNameVariables(UnitItemInfo* uInfo,
 	BOOL          bLimit);
 void SubstituteNameVariables(UnitItemInfo* uInfo,
 	string& name,
-	const string& action_name,
+	const wstring& action_name,
 	BOOL          bLimit);
 BYTE GetAffixLevel(BYTE ilvl,
 	BYTE qlvl,
 	BYTE mlvl);
 BYTE GetRequiredLevel(UnitAny* item);
 BYTE RuneNumberFromItemCode(char* code);
+BYTE RuneNumberFromItemCode(wchar_t* code);
 int GetStatFromList(UnitItemInfo* uInfo, int itemStat);

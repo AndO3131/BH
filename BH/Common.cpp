@@ -105,11 +105,27 @@ std::string Trim(std::string source) {
 	return source;
 }
 
+std::wstring Trim(std::wstring source) {
+	source = source.erase(0, source.find_first_not_of(L" "));
+	source = source.erase(source.find_last_not_of(L" ") + 1);
+	source = source.erase(0, source.find_first_not_of(L"\t"));
+	source = source.erase(source.find_last_not_of(L"\t") + 1);
+	return source;
+}
+
 bool IsTrue(const char* str) {
 	return (_stricmp(str, "1") == 0 || _stricmp(str, "y") == 0 || _stricmp(str, "yes") == 0 || _stricmp(str, "true") == 0);
 }
 
+bool IsTrue(const wchar_t* str) {
+	return (_wcsicmp(str, L"1") == 0 || _wcsicmp(str, L"y") == 0 || _wcsicmp(str, L"yes") == 0 || _wcsicmp(str, L"true") == 0);
+}
+
 bool StringToBool(std::string str) {
+	return IsTrue(str.c_str());
+}
+
+bool WStringToBool(std::wstring str) {
 	return IsTrue(str.c_str());
 }
 
@@ -120,6 +136,17 @@ int StringToNumber(std::string str) {
 	}
 	else {
 		from_string<int>(ret, str, std::dec);
+	}
+	return ret;
+}
+
+int WStringToNumber(std::wstring str) {
+	int ret;
+	if (!str.find(L"0x")) {
+		from_wstring<int>(ret, str, std::hex);
+	}
+	else {
+		from_wstring<int>(ret, str, std::dec);
 	}
 	return ret;
 }
@@ -135,6 +162,17 @@ void PrintText(DWORD Color, char* szText, ...) {
 	wchar_t Buffer[0x130];
 	MultiByteToWideChar(CODE_PAGE, 1, szBuffer, 152, Buffer, 304);
 	D2CLIENT_PrintGameString(Buffer, Color);
+}
+
+void PrintText(DWORD Color, wchar_t* szText, ...) {
+	wchar_t szBuffer[152] = { 0 };
+	va_list Args;
+	//va_start(Args, szText);
+	//_vsnwprintf_s(szBuffer, 152, _TRUNCATE, szText, Args);
+	//va_end(Args);
+	//wchar_t Buffer[0x130];
+	//MultiByteToWideChar(CODE_PAGE, 1, szBuffer, 152, Buffer, 304);
+	D2CLIENT_PrintGameString(szText, Color);
 }
 
 KeyCode pCodes[] = {
@@ -201,6 +239,7 @@ KeyCode GetKeyCode(unsigned int nKey) {
 			return pCodes[n];
 	return pCodes[0];
 }
+
 KeyCode GetKeyCode(const char* name) {
 	for (int n = 1; n < (sizeof(pCodes) / sizeof(pCodes[0])); n++)
 		if (!_stricmp(name, pCodes[n].name.c_str()))

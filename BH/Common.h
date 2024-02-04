@@ -62,18 +62,32 @@ bool from_string(T& t,
 	return !(iss >> f >> t).fail();
 }
 
+template <class T>
+bool from_wstring(T& t,
+	const std::wstring& s,
+	std::ios_base& (*f)(std::ios_base&))
+{
+	std::wistringstream iss(s);
+	return !(iss >> f >> t).fail();
+}
+
 template< class type> std::string to_string(const type& value)
 {
 	std::stringstream ss; ss << value; return ss.str();
 }
 
 bool IsTrue(const char* str);
+bool IsTrue(const wchar_t* str);
 bool StringToBool(std::string str);
+bool WStringToBool(std::wstring str);
 int StringToNumber(std::string str);
+int WStringToNumber(std::wstring str);
 
 std::string Trim(std::string source);
+std::wstring Trim(std::wstring source);
 
 void PrintText(DWORD Color, char* szText, ...);
+void PrintText(DWORD Color, wchar_t* szText, ...);
 
 struct KeyCode {
 	std::string name;
@@ -82,6 +96,7 @@ struct KeyCode {
 };
 
 KeyCode GetKeyCode(unsigned int nKey);
+// CHECK IF THIS SHOULDN'T CHANGE TO wstring VALUE or create WCHAR_T version
 KeyCode GetKeyCode(const char* name);
 ULONGLONG BHGetTickCount(void);
 

@@ -27,7 +27,7 @@ bool Interact(DWORD UnitId, DWORD UnitType);
 bool SendSyncMsg();
 
 std::string GetItemCode(int dwTxtFileNo);
-std::string GetItemName(UnitAny* item);
+std::wstring GetItemName(UnitAny* item);
 bool IsTown(DWORD levelId);
 
 bool IsGameReady();

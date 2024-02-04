@@ -1,4 +1,4 @@
-﻿#include "ItemDisplay.h"
+#include "ItemDisplay.h"
 #include "Item.h"
 #include "../../Drawing/Stats/StatsDisplay.h"
 #include <cctype>
@@ -29,22 +29,22 @@
 // For ignoring size
 std::vector<std::string> colorreps =
 {
-	"\xFF""c0",
-	"\xFF""c1",
-	"\xFF""c2",
-	"\xFF""c3",
-	"\xFF""c4",
-	"\xFF""c5",
-	"\xFF""c6",
-	"\xFF""c7",
-	"\xFF""c8",
-	"\xFF""c9",
-	"\xFF""c;",
-	"\xFF""c:",
-	"\xFF""c\x06",
-	"\xFF""c\x07",
-	"\xFF""c\x09",
-	"\xFF""c\x0C"
+	"\xc3\xbf\x63\x30",
+	"\xc3\xbf\x63\x31",
+	"\xc3\xbf\x63\x32",
+	"\xc3\xbf\x63\x33",
+	"\xc3\xbf\x63\x34",
+	"\xc3\xbf\x63\x35",
+	"\xc3\xbf\x63\x36",
+	"\xc3\xbf\x63\x37",
+	"\xc3\xbf\x63\x38",
+	"\xc3\xbf\x63\x39",
+	"\xc3\xbf\x63\x3b",
+	"\xc3\xbf\x63\x3a",
+	"\xc3\xbf\x63\x06",
+	"\xc3\xbf\x63\x07",
+	"\xc3\xbf\x63\x09",
+	"\xc3\xbf\x63\x0C"
 };
 
 // All colors here must also be defined in MAP_COLOR_REPLACEMENTS
@@ -86,313 +86,313 @@ std::vector<std::string> colorreps =
 	{L"TEAL", 0xCB}, \
 	{L"LIGHT_GRAY", 0xD6}
 
-std::map<std::string, int> code_to_dwtxtfileno = {
-		{"hax", 0},
-		{"axe", 1},
-		{"2ax", 2},
-		{"mpi", 3},
-		{"wax", 4},
-		{"lax", 5},
-		{"bax", 6},
-		{"btx", 7},
-		{"gax", 8},
-		{"gix", 9},
-		{"wnd", 10},
-		{"ywn", 11},
-		{"bwn", 12},
-		{"gwn", 13},
-		{"clb", 14},
-		{"scp", 15},
-		{"gsc", 16},
-		{"wsp", 17},
-		{"spc", 18},
-		{"mac", 19},
-		{"mst", 20},
-		{"fla", 21},
-		{"whm", 22},
-		{"mau", 23},
-		{"gma", 24},
-		{"ssd", 25},
-		{"scm", 26},
-		{"sbr", 27},
-		{"flc", 28},
-		{"crs", 29},
-		{"bsd", 30},
-		{"lsd", 31},
-		{"wsd", 32},
-		{"2hs", 33},
-		{"clm", 34},
-		{"gis", 35},
-		{"bsw", 36},
-		{"flb", 37},
-		{"gsd", 38},
-		{"dgr", 39},
-		{"dir", 40},
-		{"kri", 41},
-		{"bld", 42},
-		{"tkf", 43},
-		{"tax", 44},
-		{"bkf", 45},
-		{"bal", 46},
-		{"jav", 47},
-		{"pil", 48},
-		{"ssp", 49},
-		{"glv", 50},
-		{"tsp", 51},
-		{"spr", 52},
-		{"tri", 53},
-		{"brn", 54},
-		{"spt", 55},
-		{"pik", 56},
-		{"bar", 57},
-		{"vou", 58},
-		{"scy", 59},
-		{"pax", 60},
-		{"hal", 61},
-		{"wsc", 62},
-		{"sst", 63},
-		{"lst", 64},
-		{"cst", 65},
-		{"bst", 66},
-		{"wst", 67},
-		{"sbw", 68},
-		{"hbw", 69},
-		{"lbw", 70},
-		{"cbw", 71},
-		{"sbb", 72},
-		{"lbb", 73},
-		{"swb", 74},
-		{"lwb", 75},
-		{"lxb", 76},
-		{"mxb", 77},
-		{"hxb", 78},
-		{"rxb", 79},
-		{"gps", 80},
-		{"ops", 81},
-		{"gpm", 82},
-		{"opm", 83},
-		{"gpl", 84},
-		{"opl", 85},
-		{"d33", 86},
-		{"g33", 87},
-		{"leg", 88},
-		{"hdm", 89},
-		{"hfh", 90},
-		{"hst", 91},
-		{"msf", 92},
-		{"9ha", 93},
-		{"9ax", 94},
-		{"92a", 95},
-		{"9mp", 96},
-		{"9wa", 97},
-		{"9la", 98},
-		{"9ba", 99},
-		{"9bt", 100},
-		{"9ga", 101},
-		{"9gi", 102},
-		{"9wn", 103},
-		{"9yw", 104},
-		{"9bw", 105},
-		{"9gw", 106},
-		{"9cl", 107},
-		{"9sc", 108},
-		{"9qs", 109},
-		{"9ws", 110},
-		{"9sp", 111},
-		{"9ma", 112},
-		{"9mt", 113},
-		{"9fl", 114},
-		{"9wh", 115},
-		{"9m9", 116},
-		{"9gm", 117},
-		{"9ss", 118},
-		{"9sm", 119},
-		{"9sb", 120},
-		{"9fc", 121},
-		{"9cr", 122},
-		{"9bs", 123},
-		{"9ls", 124},
-		{"9wd", 125},
-		{"92h", 126},
-		{"9cm", 127},
-		{"9gs", 128},
-		{"9b9", 129},
-		{"9fb", 130},
-		{"9gd", 131},
-		{"9dg", 132},
-		{"9di", 133},
-		{"9kr", 134},
-		{"9bl", 135},
-		{"9tk", 136},
-		{"9ta", 137},
-		{"9bk", 138},
-		{"9b8", 139},
-		{"9ja", 140},
-		{"9pi", 141},
-		{"9s9", 142},
-		{"9gl", 143},
-		{"9ts", 144},
-		{"9sr", 145},
-		{"9tr", 146},
-		{"9br", 147},
-		{"9st", 148},
-		{"9p9", 149},
-		{"9b7", 150},
-		{"9vo", 151},
-		{"9s8", 152},
-		{"9pa", 153},
-		{"9h9", 154},
-		{"9wc", 155},
-		{"8ss", 156},
-		{"8ls", 157},
-		{"8cs", 158},
-		{"8bs", 159},
-		{"8ws", 160},
-		{"8sb", 161},
-		{"8hb", 162},
-		{"8lb", 163},
-		{"8cb", 164},
-		{"8s8", 165},
-		{"8l8", 166},
-		{"8sw", 167},
-		{"8lw", 168},
-		{"8lx", 169},
-		{"8mx", 170},
-		{"8hx", 171},
-		{"8rx", 172},
-		{"qf1", 173},
-		{"qf2", 174},
-		{"ktr", 175},
-		{"wrb", 176},
-		{"axf", 177},
-		{"ces", 178},
-		{"clw", 179},
-		{"btl", 180},
-		{"skr", 181},
-		{"9ar", 182},
-		{"9wb", 183},
-		{"9xf", 184},
-		{"9cs", 185},
-		{"9lw", 186},
-		{"9tw", 187},
-		{"9qr", 188},
-		{"7ar", 189},
-		{"7wb", 190},
-		{"7xf", 191},
-		{"7cs", 192},
-		{"7lw", 193},
-		{"7tw", 194},
-		{"7qr", 195},
-		{"7ha", 196},
-		{"7ax", 197},
-		{"72a", 198},
-		{"7mp", 199},
-		{"7wa", 200},
-		{"7la", 201},
-		{"7ba", 202},
-		{"7bt", 203},
-		{"7ga", 204},
-		{"7gi", 205},
-		{"7wn", 206},
-		{"7yw", 207},
-		{"7bw", 208},
-		{"7gw", 209},
-		{"7cl", 210},
-		{"7sc", 211},
-		{"7qs", 212},
-		{"7ws", 213},
-		{"7sp", 214},
-		{"7ma", 215},
-		{"7mt", 216},
-		{"7fl", 217},
-		{"7wh", 218},
-		{"7m7", 219},
-		{"7gm", 220},
-		{"7ss", 221},
-		{"7sm", 222},
-		{"7sb", 223},
-		{"7fc", 224},
-		{"7cr", 225},
-		{"7bs", 226},
-		{"7ls", 227},
-		{"7wd", 228},
-		{"72h", 229},
-		{"7cm", 230},
-		{"7gs", 231},
-		{"7b7", 232},
-		{"7fb", 233},
-		{"7gd", 234},
-		{"7dg", 235},
-		{"7di", 236},
-		{"7kr", 237},
-		{"7bl", 238},
-		{"7tk", 239},
-		{"7ta", 240},
-		{"7bk", 241},
-		{"7b8", 242},
-		{"7ja", 243},
-		{"7pi", 244},
-		{"7s7", 245},
-		{"7gl", 246},
-		{"7ts", 247},
-		{"7sr", 248},
-		{"7tr", 249},
-		{"7br", 250},
-		{"7st", 251},
-		{"7p7", 252},
-		{"7o7", 253},
-		{"7vo", 254},
-		{"7s8", 255},
-		{"7pa", 256},
-		{"7h7", 257},
-		{"7wc", 258},
-		{"6ss", 259},
-		{"6ls", 260},
-		{"6cs", 261},
-		{"6bs", 262},
-		{"6ws", 263},
-		{"6sb", 264},
-		{"6hb", 265},
-		{"6lb", 266},
-		{"6cb", 267},
-		{"6s7", 268},
-		{"6l7", 269},
-		{"6sw", 270},
-		{"6lw", 271},
-		{"6lx", 272},
-		{"6mx", 273},
-		{"6hx", 274},
-		{"6rx", 275},
-		{"ob1", 276},
-		{"ob2", 277},
-		{"ob3", 278},
-		{"ob4", 279},
-		{"ob5", 280},
-		{"am1", 281},
-		{"am2", 282},
-		{"am3", 283},
-		{"am4", 284},
-		{"am5", 285},
-		{"ob6", 286},
-		{"ob7", 287},
-		{"ob8", 288},
-		{"ob9", 289},
-		{"oba", 290},
-		{"am6", 291},
-		{"am7", 292},
-		{"am8", 293},
-		{"am9", 294},
-		{"ama", 295},
-		{"obb", 296},
-		{"obc", 297},
-		{"obd", 298},
-		{"obe", 299},
-		{"obf", 300},
-		{"amb", 301},
-		{"amc", 302},
-		{"amd", 303},
-		{"ame", 304},
-		{"amf", 305},
+std::map<std::wstring, int> code_to_dwtxtfileno = {
+		{L"hax", 0},
+		{L"axe", 1},
+		{L"2ax", 2},
+		{L"mpi", 3},
+		{L"wax", 4},
+		{L"lax", 5},
+		{L"bax", 6},
+		{L"btx", 7},
+		{L"gax", 8},
+		{L"gix", 9},
+		{L"wnd", 10},
+		{L"ywn", 11},
+		{L"bwn", 12},
+		{L"gwn", 13},
+		{L"clb", 14},
+		{L"scp", 15},
+		{L"gsc", 16},
+		{L"wsp", 17},
+		{L"spc", 18},
+		{L"mac", 19},
+		{L"mst", 20},
+		{L"fla", 21},
+		{L"whm", 22},
+		{L"mau", 23},
+		{L"gma", 24},
+		{L"ssd", 25},
+		{L"scm", 26},
+		{L"sbr", 27},
+		{L"flc", 28},
+		{L"crs", 29},
+		{L"bsd", 30},
+		{L"lsd", 31},
+		{L"wsd", 32},
+		{L"2hs", 33},
+		{L"clm", 34},
+		{L"gis", 35},
+		{L"bsw", 36},
+		{L"flb", 37},
+		{L"gsd", 38},
+		{L"dgr", 39},
+		{L"dir", 40},
+		{L"kri", 41},
+		{L"bld", 42},
+		{L"tkf", 43},
+		{L"tax", 44},
+		{L"bkf", 45},
+		{L"bal", 46},
+		{L"jav", 47},
+		{L"pil", 48},
+		{L"ssp", 49},
+		{L"glv", 50},
+		{L"tsp", 51},
+		{L"spr", 52},
+		{L"tri", 53},
+		{L"brn", 54},
+		{L"spt", 55},
+		{L"pik", 56},
+		{L"bar", 57},
+		{L"vou", 58},
+		{L"scy", 59},
+		{L"pax", 60},
+		{L"hal", 61},
+		{L"wsc", 62},
+		{L"sst", 63},
+		{L"lst", 64},
+		{L"cst", 65},
+		{L"bst", 66},
+		{L"wst", 67},
+		{L"sbw", 68},
+		{L"hbw", 69},
+		{L"lbw", 70},
+		{L"cbw", 71},
+		{L"sbb", 72},
+		{L"lbb", 73},
+		{L"swb", 74},
+		{L"lwb", 75},
+		{L"lxb", 76},
+		{L"mxb", 77},
+		{L"hxb", 78},
+		{L"rxb", 79},
+		{L"gps", 80},
+		{L"ops", 81},
+		{L"gpm", 82},
+		{L"opm", 83},
+		{L"gpl", 84},
+		{L"opl", 85},
+		{L"d33", 86},
+		{L"g33", 87},
+		{L"leg", 88},
+		{L"hdm", 89},
+		{L"hfh", 90},
+		{L"hst", 91},
+		{L"msf", 92},
+		{L"9ha", 93},
+		{L"9ax", 94},
+		{L"92a", 95},
+		{L"9mp", 96},
+		{L"9wa", 97},
+		{L"9la", 98},
+		{L"9ba", 99},
+		{L"9bt", 100},
+		{L"9ga", 101},
+		{L"9gi", 102},
+		{L"9wn", 103},
+		{L"9yw", 104},
+		{L"9bw", 105},
+		{L"9gw", 106},
+		{L"9cl", 107},
+		{L"9sc", 108},
+		{L"9qs", 109},
+		{L"9ws", 110},
+		{L"9sp", 111},
+		{L"9ma", 112},
+		{L"9mt", 113},
+		{L"9fl", 114},
+		{L"9wh", 115},
+		{L"9m9", 116},
+		{L"9gm", 117},
+		{L"9ss", 118},
+		{L"9sm", 119},
+		{L"9sb", 120},
+		{L"9fc", 121},
+		{L"9cr", 122},
+		{L"9bs", 123},
+		{L"9ls", 124},
+		{L"9wd", 125},
+		{L"92h", 126},
+		{L"9cm", 127},
+		{L"9gs", 128},
+		{L"9b9", 129},
+		{L"9fb", 130},
+		{L"9gd", 131},
+		{L"9dg", 132},
+		{L"9di", 133},
+		{L"9kr", 134},
+		{L"9bl", 135},
+		{L"9tk", 136},
+		{L"9ta", 137},
+		{L"9bk", 138},
+		{L"9b8", 139},
+		{L"9ja", 140},
+		{L"9pi", 141},
+		{L"9s9", 142},
+		{L"9gl", 143},
+		{L"9ts", 144},
+		{L"9sr", 145},
+		{L"9tr", 146},
+		{L"9br", 147},
+		{L"9st", 148},
+		{L"9p9", 149},
+		{L"9b7", 150},
+		{L"9vo", 151},
+		{L"9s8", 152},
+		{L"9pa", 153},
+		{L"9h9", 154},
+		{L"9wc", 155},
+		{L"8ss", 156},
+		{L"8ls", 157},
+		{L"8cs", 158},
+		{L"8bs", 159},
+		{L"8ws", 160},
+		{L"8sb", 161},
+		{L"8hb", 162},
+		{L"8lb", 163},
+		{L"8cb", 164},
+		{L"8s8", 165},
+		{L"8l8", 166},
+		{L"8sw", 167},
+		{L"8lw", 168},
+		{L"8lx", 169},
+		{L"8mx", 170},
+		{L"8hx", 171},
+		{L"8rx", 172},
+		{L"qf1", 173},
+		{L"qf2", 174},
+		{L"ktr", 175},
+		{L"wrb", 176},
+		{L"axf", 177},
+		{L"ces", 178},
+		{L"clw", 179},
+		{L"btl", 180},
+		{L"skr", 181},
+		{L"9ar", 182},
+		{L"9wb", 183},
+		{L"9xf", 184},
+		{L"9cs", 185},
+		{L"9lw", 186},
+		{L"9tw", 187},
+		{L"9qr", 188},
+		{L"7ar", 189},
+		{L"7wb", 190},
+		{L"7xf", 191},
+		{L"7cs", 192},
+		{L"7lw", 193},
+		{L"7tw", 194},
+		{L"7qr", 195},
+		{L"7ha", 196},
+		{L"7ax", 197},
+		{L"72a", 198},
+		{L"7mp", 199},
+		{L"7wa", 200},
+		{L"7la", 201},
+		{L"7ba", 202},
+		{L"7bt", 203},
+		{L"7ga", 204},
+		{L"7gi", 205},
+		{L"7wn", 206},
+		{L"7yw", 207},
+		{L"7bw", 208},
+		{L"7gw", 209},
+		{L"7cl", 210},
+		{L"7sc", 211},
+		{L"7qs", 212},
+		{L"7ws", 213},
+		{L"7sp", 214},
+		{L"7ma", 215},
+		{L"7mt", 216},
+		{L"7fl", 217},
+		{L"7wh", 218},
+		{L"7m7", 219},
+		{L"7gm", 220},
+		{L"7ss", 221},
+		{L"7sm", 222},
+		{L"7sb", 223},
+		{L"7fc", 224},
+		{L"7cr", 225},
+		{L"7bs", 226},
+		{L"7ls", 227},
+		{L"7wd", 228},
+		{L"72h", 229},
+		{L"7cm", 230},
+		{L"7gs", 231},
+		{L"7b7", 232},
+		{L"7fb", 233},
+		{L"7gd", 234},
+		{L"7dg", 235},
+		{L"7di", 236},
+		{L"7kr", 237},
+		{L"7bl", 238},
+		{L"7tk", 239},
+		{L"7ta", 240},
+		{L"7bk", 241},
+		{L"7b8", 242},
+		{L"7ja", 243},
+		{L"7pi", 244},
+		{L"7s7", 245},
+		{L"7gl", 246},
+		{L"7ts", 247},
+		{L"7sr", 248},
+		{L"7tr", 249},
+		{L"7br", 250},
+		{L"7st", 251},
+		{L"7p7", 252},
+		{L"7o7", 253},
+		{L"7vo", 254},
+		{L"7s8", 255},
+		{L"7pa", 256},
+		{L"7h7", 257},
+		{L"7wc", 258},
+		{L"6ss", 259},
+		{L"6ls", 260},
+		{L"6cs", 261},
+		{L"6bs", 262},
+		{L"6ws", 263},
+		{L"6sb", 264},
+		{L"6hb", 265},
+		{L"6lb", 266},
+		{L"6cb", 267},
+		{L"6s7", 268},
+		{L"6l7", 269},
+		{L"6sw", 270},
+		{L"6lw", 271},
+		{L"6lx", 272},
+		{L"6mx", 273},
+		{L"6hx", 274},
+		{L"6rx", 275},
+		{L"ob1", 276},
+		{L"ob2", 277},
+		{L"ob3", 278},
+		{L"ob4", 279},
+		{L"ob5", 280},
+		{L"am1", 281},
+		{L"am2", 282},
+		{L"am3", 283},
+		{L"am4", 284},
+		{L"am5", 285},
+		{L"ob6", 286},
+		{L"ob7", 287},
+		{L"ob8", 288},
+		{L"ob9", 289},
+		{L"oba", 290},
+		{L"am6", 291},
+		{L"am7", 292},
+		{L"am8", 293},
+		{L"am9", 294},
+		{L"ama", 295},
+		{L"obb", 296},
+		{L"obc", 297},
+		{L"obd", 298},
+		{L"obe", 299},
+		{L"obf", 300},
+		{L"amb", 301},
+		{L"amc", 302},
+		{L"amd", 303},
+		{L"ame", 304},
+		{L"amf", 305},
 };
 
 std::map<int, int> maptiers = {
@@ -552,154 +552,154 @@ enum FilterCondition
 	COND_NULL
 };
 
-std::map<std::string, FilterCondition> condition_map =
+std::map<std::wstring, FilterCondition> condition_map =
 {
-	{"AND", COND_AND},
-	{"&&", COND_AND},
-	{"OR", COND_OR},
-	{"||", COND_OR},
-	{"ETH", COND_ETH},
-	{"SOCK", COND_SOCK},
-	{"SOCKETS", COND_SOCK},
-	{"SET", COND_SET},
-	{"MAG", COND_MAG},
-	{"RARE", COND_RARE},
-	{"UNI", COND_UNI},
-	{"AMAZON", COND_AMAZON},
-	{"SORCERESS", COND_SORCERESS},
-	{"NECROMANCER", COND_NECROMANCER},
-	{"PALADIN", COND_PALADIN},
-	{"BARBARIAN", COND_BARBARIAN},
-	{"DRUID", COND_DRUID},
-	{"ASSASSIN", COND_ASSASSIN},
-	{"CRAFTALVL", COND_CRAFTALVL},
-	{"PREFIX", COND_PREFIX},
-	{"SUFFIX", COND_SUFFIX},
-	{"AUTOMOD", COND_AUTOMOD},
-	{"MAPID", COND_MAPID},
-	{"MAPTIER", COND_MAPTIER},
-	{"CRAFT", COND_CRAFT},
-	{"RW", COND_RW},
-	{"NMAG", COND_NMAG},
-	{"SUP", COND_SUP},
-	{"INF", COND_INF},
-	{"NORM", COND_NORM},
-	{"EXC", COND_EXC},
-	{"ELT", COND_ELT},
-	{"CLASS", COND_CLASS},
-	{"ID", COND_ID},
-	{"ILVL", COND_ILVL},
-	{"QLVL", COND_QLVL},
-	{"ALVL", COND_ALVL},
-	{"CLVL", COND_CLVL},
-	{"FILTLVL", COND_FILTLVL},
-	{"DIFF", COND_DIFF},
-	{"RUNE", COND_RUNE},
-	{"GOLD", COND_GOLD},
-	{"GEMMED", COND_GEMMED},
-	{"GEMTYPE", COND_GEMTYPE},
-	{"GEM", COND_GEM},
-	{"GEMLEVEL", COND_GEM},
-	{"ED", COND_ED},
-	{"EDEF", COND_EDEF},
-	{"EDAM", COND_EDAM},
-	{"DEF", COND_DEF},
-	{"MAXDUR", COND_MAXDUR},
-	{"RES", COND_RES},
-	{"FRES", COND_FRES},
-	{"CRES", COND_CRES},
-	{"LRES", COND_LRES},
-	{"PRES", COND_PRES},
-	{"IAS", COND_IAS},
-	{"FCR", COND_FCR},
-	{"FHR", COND_FHR},
-	{"FBR", COND_FBR},
-	{"LIFE", COND_LIFE},
-	{"MANA", COND_MANA},
-	{"QTY", COND_QTY},
-	{"GOODSK", COND_GOODSK},
-	{"GOODTBSK", COND_GOODTBSK},
-	{"FOOLS", COND_FOOLS},
-	{"LVLREQ", COND_LVLREQ},
-	{"ARPER", COND_ARPER},
-	{"MFIND", COND_MFIND},
-	{"GFIND", COND_GFIND},
-	{"STR", COND_STR},
-	{"DEX", COND_DEX},
-	{"FRW", COND_FRW},
-	{"MINDMG", COND_MINDMG},
-	{"MAXDMG", COND_MAXDMG},
-	{"AR", COND_AR},
-	{"DTM", COND_DTM},
-	{"MAEK", COND_MAEK},
-	{"REPLIFE", COND_REPLIFE},
-	{"REPQUANT", COND_REPQUANT},
-	{"REPAIR", COND_REPAIR},
-	{"ARMOR", COND_ARMOR},
-	{"BELT", COND_BELT},
-	{"CHEST", COND_CHEST},
-	{"HELM", COND_HELM},
-	{"SHIELD", COND_SHIELD},
-	{"GLOVES", COND_GLOVES},
-	{"BOOTS", COND_BOOTS},
-	{"CIRC", COND_CIRC},
-	{"DRU", COND_DRU},
-	{"BAR", COND_BAR},
-	{"DIN", COND_DIN},
-	{"NEC", COND_NEC},
-	{"SIN", COND_SIN},
-	{"SOR", COND_SOR},
-	{"ZON", COND_ZON},
-	{"SHOP", COND_SHOP},
-	{"EQUIPPED", COND_EQUIPPED},
-	{"1H", COND_1H},
-	{"2H", COND_2H},
-	{"AXE", COND_AXE},
-	{"MACE", COND_MACE},
-	{"CLUB", COND_CLUB},
-	{"TMACE", COND_TMACE},
-	{"HAMMER", COND_HAMMER},
-	{"SWORD", COND_SWORD},
-	{"DAGGER", COND_DAGGER},
-	{"THROWING", COND_THROWING},
-	{"JAV", COND_JAV},
-	{"SPEAR", COND_SPEAR},
-	{"POLEARM", COND_POLEARM},
-	{"BOW", COND_BOW},
-	{"XBOW", COND_XBOW},
-	{"STAFF", COND_STAFF},
-	{"WAND", COND_WAND},
-	{"SCEPTER", COND_SCEPTER},
-	{"EQ1", COND_HELM},
-	{"EQ2", COND_CHEST},
-	{"EQ3", COND_SHIELD},
-	{"EQ4", COND_GLOVES},
-	{"EQ5", COND_BOOTS},
-	{"EQ6", COND_BELT},
-	{"EQ7", COND_CIRC},
-	{"CL1", COND_DRU},
-	{"CL2", COND_BAR},
-	{"CL3", COND_DIN},
-	{"CL4", COND_NEC},
-	{"CL5", COND_SIN},
-	{"CL6", COND_SOR},
-	{"CL7", COND_ZON},
-	{"WEAPON", COND_WEAPON},
-	{"WP1", COND_AXE},
-	{"WP2", COND_MACE},
-	{"WP3", COND_SWORD},
-	{"WP4", COND_DAGGER},
-	{"WP5", COND_THROWING},
-	{"WP6", COND_JAV},
-	{"WP7", COND_SPEAR},
-	{"WP8", COND_POLEARM},
-	{"WP9", COND_BOW},
-	{"WP10", COND_XBOW},
-	{"WP11", COND_STAFF},
-	{"WP12", COND_WAND},
-	{"WP13", COND_SCEPTER},
-	{"ALLSK", COND_ALLSK},
-	{"PRICE", COND_PRICE},
+	{L"AND", COND_AND},
+	{L"&&", COND_AND},
+	{L"OR", COND_OR},
+	{L"||", COND_OR},
+	{L"ETH", COND_ETH},
+	{L"SOCK", COND_SOCK},
+	{L"SOCKETS", COND_SOCK},
+	{L"SET", COND_SET},
+	{L"MAG", COND_MAG},
+	{L"RARE", COND_RARE},
+	{L"UNI", COND_UNI},
+	{L"AMAZON", COND_AMAZON},
+	{L"SORCERESS", COND_SORCERESS},
+	{L"NECROMANCER", COND_NECROMANCER},
+	{L"PALADIN", COND_PALADIN},
+	{L"BARBARIAN", COND_BARBARIAN},
+	{L"DRUID", COND_DRUID},
+	{L"ASSASSIN", COND_ASSASSIN},
+	{L"CRAFTALVL", COND_CRAFTALVL},
+	{L"PREFIX", COND_PREFIX},
+	{L"SUFFIX", COND_SUFFIX},
+	{L"AUTOMOD", COND_AUTOMOD},
+	{L"MAPID", COND_MAPID},
+	{L"MAPTIER", COND_MAPTIER},
+	{L"CRAFT", COND_CRAFT},
+	{L"RW", COND_RW},
+	{L"NMAG", COND_NMAG},
+	{L"SUP", COND_SUP},
+	{L"INF", COND_INF},
+	{L"NORM", COND_NORM},
+	{L"EXC", COND_EXC},
+	{L"ELT", COND_ELT},
+	{L"CLASS", COND_CLASS},
+	{L"ID", COND_ID},
+	{L"ILVL", COND_ILVL},
+	{L"QLVL", COND_QLVL},
+	{L"ALVL", COND_ALVL},
+	{L"CLVL", COND_CLVL},
+	{L"FILTLVL", COND_FILTLVL},
+	{L"DIFF", COND_DIFF},
+	{L"RUNE", COND_RUNE},
+	{L"GOLD", COND_GOLD},
+	{L"GEMMED", COND_GEMMED},
+	{L"GEMTYPE", COND_GEMTYPE},
+	{L"GEM", COND_GEM},
+	{L"GEMLEVEL", COND_GEM},
+	{L"ED", COND_ED},
+	{L"EDEF", COND_EDEF},
+	{L"EDAM", COND_EDAM},
+	{L"DEF", COND_DEF},
+	{L"MAXDUR", COND_MAXDUR},
+	{L"RES", COND_RES},
+	{L"FRES", COND_FRES},
+	{L"CRES", COND_CRES},
+	{L"LRES", COND_LRES},
+	{L"PRES", COND_PRES},
+	{L"IAS", COND_IAS},
+	{L"FCR", COND_FCR},
+	{L"FHR", COND_FHR},
+	{L"FBR", COND_FBR},
+	{L"LIFE", COND_LIFE},
+	{L"MANA", COND_MANA},
+	{L"QTY", COND_QTY},
+	{L"GOODSK", COND_GOODSK},
+	{L"GOODTBSK", COND_GOODTBSK},
+	{L"FOOLS", COND_FOOLS},
+	{L"LVLREQ", COND_LVLREQ},
+	{L"ARPER", COND_ARPER},
+	{L"MFIND", COND_MFIND},
+	{L"GFIND", COND_GFIND},
+	{L"STR", COND_STR},
+	{L"DEX", COND_DEX},
+	{L"FRW", COND_FRW},
+	{L"MINDMG", COND_MINDMG},
+	{L"MAXDMG", COND_MAXDMG},
+	{L"AR", COND_AR},
+	{L"DTM", COND_DTM},
+	{L"MAEK", COND_MAEK},
+	{L"REPLIFE", COND_REPLIFE},
+	{L"REPQUANT", COND_REPQUANT},
+	{L"REPAIR", COND_REPAIR},
+	{L"ARMOR", COND_ARMOR},
+	{L"BELT", COND_BELT},
+	{L"CHEST", COND_CHEST},
+	{L"HELM", COND_HELM},
+	{L"SHIELD", COND_SHIELD},
+	{L"GLOVES", COND_GLOVES},
+	{L"BOOTS", COND_BOOTS},
+	{L"CIRC", COND_CIRC},
+	{L"DRU", COND_DRU},
+	{L"BAR", COND_BAR},
+	{L"DIN", COND_DIN},
+	{L"NEC", COND_NEC},
+	{L"SIN", COND_SIN},
+	{L"SOR", COND_SOR},
+	{L"ZON", COND_ZON},
+	{L"SHOP", COND_SHOP},
+	{L"EQUIPPED", COND_EQUIPPED},
+	{L"1H", COND_1H},
+	{L"2H", COND_2H},
+	{L"AXE", COND_AXE},
+	{L"MACE", COND_MACE},
+	{L"CLUB", COND_CLUB},
+	{L"TMACE", COND_TMACE},
+	{L"HAMMER", COND_HAMMER},
+	{L"SWORD", COND_SWORD},
+	{L"DAGGER", COND_DAGGER},
+	{L"THROWING", COND_THROWING},
+	{L"JAV", COND_JAV},
+	{L"SPEAR", COND_SPEAR},
+	{L"POLEARM", COND_POLEARM},
+	{L"BOW", COND_BOW},
+	{L"XBOW", COND_XBOW},
+	{L"STAFF", COND_STAFF},
+	{L"WAND", COND_WAND},
+	{L"SCEPTER", COND_SCEPTER},
+	{L"EQ1", COND_HELM},
+	{L"EQ2", COND_CHEST},
+	{L"EQ3", COND_SHIELD},
+	{L"EQ4", COND_GLOVES},
+	{L"EQ5", COND_BOOTS},
+	{L"EQ6", COND_BELT},
+	{L"EQ7", COND_CIRC},
+	{L"CL1", COND_DRU},
+	{L"CL2", COND_BAR},
+	{L"CL3", COND_DIN},
+	{L"CL4", COND_NEC},
+	{L"CL5", COND_SIN},
+	{L"CL6", COND_SOR},
+	{L"CL7", COND_ZON},
+	{L"WEAPON", COND_WEAPON},
+	{L"WP1", COND_AXE},
+	{L"WP2", COND_MACE},
+	{L"WP3", COND_SWORD},
+	{L"WP4", COND_DAGGER},
+	{L"WP5", COND_THROWING},
+	{L"WP6", COND_JAV},
+	{L"WP7", COND_SPEAR},
+	{L"WP8", COND_POLEARM},
+	{L"WP9", COND_BOW},
+	{L"WP10", COND_XBOW},
+	{L"WP11", COND_STAFF},
+	{L"WP12", COND_WAND},
+	{L"WP13", COND_SCEPTER},
+	{L"ALLSK", COND_ALLSK},
+	{L"PRICE", COND_PRICE},
 	// These have a number as part of the key, handled separately
 	//{"SK", COND_SK},
 	//{"OS", COND_OS},
@@ -758,12 +758,12 @@ TrueCondition* trueCondition = new TrueCondition();
 FalseCondition* falseCondition = new FalseCondition();
 
 // Helper function to get a list of strings
-vector<string> split(const string& s,
-	char          delim)
+vector<wstring> split(const wstring& s,
+	wchar_t          delim)
 {
-	vector<string> result;
-	stringstream   ss(s);
-	string         item;
+	vector<wstring> result;
+	wstringstream   ss(s);
+	wstring         item;
 	while (getline(ss, item, delim)) { result.push_back(item); }
 	return result;
 }
@@ -859,6 +859,8 @@ bool IsRune(ItemAttributes* attrs)
 }
 
 BYTE RuneNumberFromItemCode(char* code) { return (BYTE)(((code[1] - '0') * 10) + code[2] - '0'); }
+
+BYTE RuneNumberFromItemCode(wchar_t* code) { return (BYTE)(((code[1] - L'0') * 10) + code[2] - L'0'); }
 
 // Find the item description. This code is called only when there's a cache miss
 string ItemDescLookupCache::make_cached_T(UnitItemInfo* uInfo)
@@ -1290,6 +1292,7 @@ void SubstituteNameVariables(UnitItemInfo* uInfo,
 		uInfo->itemCode[1] == 'b' &&
 		uInfo->itemCode[2] == 'k' ? BOOK_NAME_SIZE_LIMIT : MAX_ITEM_TEXT_SIZE;
 	if (name.size() > lengthLimit - 1) { name.resize(lengthLimit - 1); }
+//	PrintText(3, "\xc3\xbf\x63\x30 testing ÿc5 ąśćźżńó生命值"); // for testing purposes
 }
 
 BYTE GetAffixLevel(BYTE ilvl,
@@ -1338,13 +1341,13 @@ BYTE GetRequiredLevel(UnitAny* item)
 	return rlvl;
 }
 
-BYTE GetOperation(string* op)
+BYTE GetOperation(wstring* op)
 {
 	if (op->length() < 1) { return NONE; }
-	else if ((*op)[0] == '=') { return EQUAL; }
-	else if ((*op)[0] == '<') { return LESS_THAN; }
-	else if ((*op)[0] == '>') { return GREATER_THAN; }
-	else if ((*op)[0] == '~') { return BETWEEN; }
+	else if ((*op)[0] == L'=') { return EQUAL; }
+	else if ((*op)[0] == L'<') { return LESS_THAN; }
+	else if ((*op)[0] == L'>') { return GREATER_THAN; }
+	else if ((*op)[0] == L'~') { return BETWEEN; }
 	return NONE;
 }
 
@@ -1421,7 +1424,7 @@ namespace ItemDisplay
 		vector<pair<wstring, wstring>> filterDefinitions;
 		BH::lootFilter->ReadMapList(L"ItemDisplayFilterName", filterDefinitions);
 		for (unsigned int i = 0; i < filterDefinitions.size(); i++) {
-			item->ItemFilterNames.push_back(to_string(i + 1) + L" - " + filterDefinitions[i].second);
+			item->ItemFilterNames.push_back(to_string(i + 1) + " - " + UnicodeToAnsi(filterDefinitions[i].second.c_str()));
 
 			// Max 9 entries
 			if (i >= 8) {
@@ -1474,10 +1477,10 @@ void BuildAction(wstring* str,
 	//// for some reason \w wasn't catching _, so I added it to the groups
 	try
 	{
-		std::regex replace_reg(
-			R"(^(?:(?:%[^%]*%)|[^%])*%((?:\w|_|-)*?[a-z]+?(?:\w|_|-)*?)%)",
+		std::wregex replace_reg(
+			L"(^(?:(?:%[^%]*%)|[^%])*%((?:\w|_|-)*?[a-z]+?(?:\w|_|-)*?)%)",
 			std::regex_constants::ECMAScript);
-		std::smatch replace_match;
+		std::wsmatch replace_match;
 		while (std::regex_search(act->name, replace_match, replace_reg))
 		{
 			auto offset = replace_match[1].first - act->name.begin();
@@ -1491,21 +1494,21 @@ void BuildAction(wstring* str,
 	}
 	catch (std::exception e)
 	{
-		act->name = "\377c1FILTER REGEX ERROR";
+		act->name = L"\377c1FILTER REGEX ERROR";
 	}
 
 	// new stuff:
-	act->borderColor = ParseMapColor(act, "BORDER");
-	act->colorOnMap = ParseMapColor(act, "MAP");
-	act->dotColor = ParseMapColor(act, "DOT");
-	act->pxColor = ParseMapColor(act, "PX");
-	act->lineColor = ParseMapColor(act, "LINE");
-	act->notifyColor = ParseMapColor(act, "NOTIFY");
-	act->pingLevel = ParsePingLevel(act, "TIER");
+	act->borderColor = ParseMapColor(act, L"BORDER");
+	act->colorOnMap = ParseMapColor(act, L"MAP");
+	act->dotColor = ParseMapColor(act, L"DOT");
+	act->pxColor = ParseMapColor(act, L"PX");
+	act->lineColor = ParseMapColor(act, L"LINE");
+	act->notifyColor = ParseMapColor(act, L"NOTIFY");
+	act->pingLevel = ParsePingLevel(act, L"TIER");
 	act->description = ParseDescription(act);
 
 	// legacy support:
-	size_t map = act->name.find("%MAP%");
+	size_t map = act->name.find(L"%MAP%");
 	if (map != wstring::npos)
 	{
 		int          mapColor = MAP_COLOR_WHITE;
@@ -1523,54 +1526,54 @@ void BuildAction(wstring* str,
 			}
 		}
 
-		act->name.replace(map, 5, "");
+		act->name.replace(map, 5, L"");
 		act->colorOnMap = mapColor;
 		if (act->borderColor == UNDEFINED_COLOR)
 			act->borderColor = act->colorOnMap;
 	}
 
-	size_t done = act->name.find("%CONTINUE%");
+	size_t done = act->name.find(L"%CONTINUE%");
 	if (done != string::npos)
 	{
-		act->name.replace(done, 10, "");
+		act->name.replace(done, 10, L"");
 		act->stopProcessing = false;
 	}
 }
 
-int ParsePingLevel(Action* act, const string& key_string) {
-	std::regex pattern("%" + key_string + "-([0-9])%",
+int ParsePingLevel(Action* act, const wstring& key_string) {
+	std::wregex pattern(L"%" + key_string + L"-([0-9])%",
 		std::regex_constants::ECMAScript | std::regex_constants::icase);
 	int ping_level = -1;
-	std::smatch the_match;
+	std::wsmatch the_match;
 
 	if (std::regex_search(act->name, the_match, pattern)) {
 		ping_level = stoi(the_match[1].str());
 		act->name.replace(
 			the_match.prefix().length(),
-			the_match[0].length(), "");
+			the_match[0].length(), L"");
 	}
 	return ping_level;
 }
 
-string ParseDescription(Action* act)
+wstring ParseDescription(Action* act)
 {
-	size_t l_idx = act->name.find("{");
-	size_t r_idx = act->name.find("}");
-	if (l_idx == string::npos || r_idx == string::npos || l_idx > r_idx) return "";
+	size_t l_idx = act->name.find(L"{");
+	size_t r_idx = act->name.find(L"}");
+	if (l_idx == wstring::npos || r_idx == wstring::npos || l_idx > r_idx) return L"";
 	size_t start_idx = l_idx + 1;
 	size_t len = r_idx - start_idx;
-	string desc_string = act->name.substr(start_idx, len);
-	act->name.replace(l_idx, len + 2, "");
+	wstring desc_string = act->name.substr(start_idx, len);
+	act->name.replace(l_idx, len + 2, L"");
 	return desc_string;
 }
 
 int ParseMapColor(Action* act,
-	const string& key_string)
+	const wstring& key_string)
 {
-	std::regex pattern("%" + key_string + "-([a-f0-9]{1,4})%",
+	std::wregex pattern(L"%" + key_string + L"-([a-f0-9]{1,4})%",
 		std::regex_constants::ECMAScript | std::regex_constants::icase);
 	int         color = UNDEFINED_COLOR;
-	std::smatch the_match;
+	std::wsmatch the_match;
 
 	if (std::regex_search(act->name, the_match, pattern))
 	{
@@ -1578,12 +1581,12 @@ int ParseMapColor(Action* act,
 		act->name.replace(
 			the_match.prefix().length(),
 			the_match[0].length(),
-			"");
+			L"");
 	}
 	return color;
 }
 
-const string Condition::tokenDelims = "<=>~";
+const wstring Condition::tokenDelims = L"<=>~";
 
 // Implements the shunting-yard algorithm to evaluate condition expressions
 // Returns a vector of conditions in Reverse Polish Notation
@@ -1652,7 +1655,7 @@ void Condition::ProcessConditions(vector<Condition*>& inputConditions,
 }
 
 void Condition::BuildConditions(vector<Condition*>& conditions,
-	string              token)
+	wstring              token)
 {
 	vector<Condition*> endConditions;
 	int                i;
@@ -1663,9 +1666,9 @@ void Condition::BuildConditions(vector<Condition*>& conditions,
 	// Look for syntax characters at the beginning of the token
 	for (i = 0; i < (int)token.length(); i++)
 	{
-		if (token[i] == '!') { Condition::AddNonOperand(conditions, new NegationOperator()); }
-		else if (token[i] == '(') { Condition::AddNonOperand(conditions, new LeftParen()); }
-		else if (token[i] == ')') { Condition::AddNonOperand(conditions, new RightParen()); }
+		if (token[i] == L'!') { Condition::AddNonOperand(conditions, new NegationOperator()); }
+		else if (token[i] == L'(') { Condition::AddNonOperand(conditions, new LeftParen()); }
+		else if (token[i] == L')') { Condition::AddNonOperand(conditions, new RightParen()); }
 		else { break; }
 	}
 	token.erase(0, i);
@@ -1673,39 +1676,39 @@ void Condition::BuildConditions(vector<Condition*>& conditions,
 	// Look for syntax characters at the end of the token
 	for (i = token.length() - 1; i >= 0; i--)
 	{
-		if (token[i] == '!') { endConditions.insert(endConditions.begin(), new NegationOperator()); }
-		else if (token[i] == '(') { endConditions.insert(endConditions.begin(), new LeftParen()); }
-		else if (token[i] == ')') { endConditions.insert(endConditions.begin(), new RightParen()); }
+		if (token[i] == L'!') { endConditions.insert(endConditions.begin(), new NegationOperator()); }
+		else if (token[i] == L'(') { endConditions.insert(endConditions.begin(), new LeftParen()); }
+		else if (token[i] == L')') { endConditions.insert(endConditions.begin(), new RightParen()); }
 		else { break; }
 	}
-	if (i < (int)(token.length() - 1)) { token.erase(i + 1, string::npos); }
+	if (i < (int)(token.length() - 1)) { token.erase(i + 1, wstring::npos); }
 
 	size_t delPos = token.find_first_of(tokenDelims);
-	string key;
-	string delim = "";
+	wstring key;
+	wstring delim = L"";
 	int    value = 0;
 	int    value2 = 0;
-	if (delPos != string::npos)
+	if (delPos != wstring::npos)
 	{
 		key = Trim(token.substr(0, delPos));
 		delim = token.substr(delPos, 1);
-		string valueStr = Trim(token.substr(delPos + 1));
+		wstring valueStr = Trim(token.substr(delPos + 1));
 		if (valueStr.length() > 0)
 		{
 			// Get min/max values if a range is given
-			if (delim == "~" && valueStr.find("-") != string::npos)
+			if (delim == L"~" && valueStr.find(L"-") != wstring::npos)
 			{
-				auto rangeDelim = valueStr.find("-");
-				stringstream ss1(valueStr.substr(0, rangeDelim));
+				auto rangeDelim = valueStr.find(L"-");
+				wstringstream ss1(valueStr.substr(0, rangeDelim));
 				valueStr.erase(0, rangeDelim + 1);
-				stringstream ss2(valueStr);
+				wstringstream ss2(valueStr);
 				if ((ss1 >> value).fail() || (ss2 >> value2).fail())
 				{
 					return; // TODO: returning errors
 				}
 			}
 			else {
-				stringstream ss(valueStr);
+				wstringstream ss(valueStr);
 				if ((ss >> value).fail())
 				{
 					return; // TODO: returning errors
@@ -1717,10 +1720,10 @@ void Condition::BuildConditions(vector<Condition*>& conditions,
 
 	BYTE operation = GetOperation(&delim);
 	unsigned int keylen = key.length();
-	stringstream number_ss("");
+	wstringstream number_ss(L"");
 	int cond_num = -1;
-	std::regex multi_reg("([0-9]{1,10}),([0-9]{1,10})", std::regex_constants::ECMAScript | std::regex_constants::icase);
-	std::smatch multi_match;
+	std::wregex multi_reg(L"([0-9]{1,10}),([0-9]{1,10})", std::regex_constants::ECMAScript | std::regex_constants::icase);
+	std::wsmatch multi_match;
 
 	FilterCondition condition = COND_NULL;
 	if (condition_map.find(key) != condition_map.end())
@@ -1731,46 +1734,46 @@ void Condition::BuildConditions(vector<Condition*>& conditions,
 	{
 		condition = COND_ITEMCODE;
 	}
-	else if (key.find('+') != std::string::npos)
+	else if (key.find(L'+') != std::wstring::npos)
 	{
 		condition = COND_ADD;
 	}
-	else if (key.compare(0, 2, "SK") == 0)
+	else if (key.compare(0, 2, L"SK") == 0)
 	{
 		condition = COND_SK;
-		number_ss = stringstream(key.substr(2));
+		number_ss = wstringstream(key.substr(2));
 	}
-	else if (key.compare(0, 2, "OS") == 0)
+	else if (key.compare(0, 2, L"OS") == 0)
 	{
 		condition = COND_OS;
-		number_ss = stringstream(key.substr(2));
+		number_ss = wstringstream(key.substr(2));
 	}
-	else if (key.compare(0, 4, "CHSK") == 0)
+	else if (key.compare(0, 4, L"CHSK") == 0)
 	{
 		condition = COND_CHSK;
-		number_ss = stringstream(key.substr(4));
+		number_ss = wstringstream(key.substr(4));
 	}
-	else if (key.compare(0, 4, "CLSK") == 0)
+	else if (key.compare(0, 4, L"CLSK") == 0)
 	{
 		condition = COND_CLSK;
-		number_ss = stringstream(key.substr(4));
+		number_ss = wstringstream(key.substr(4));
 	}
-	else if (key.compare(0, 5, "TABSK") == 0)
+	else if (key.compare(0, 5, L"TABSK") == 0)
 	{
 		condition = COND_TABSK;
-		number_ss = stringstream(key.substr(5));
+		number_ss = wstringstream(key.substr(5));
 	}
-	else if (key.compare(0, 4, "STAT") == 0)
+	else if (key.compare(0, 4, L"STAT") == 0)
 	{
 		condition = COND_STAT;
-		number_ss = stringstream(key.substr(4));
+		number_ss = wstringstream(key.substr(4));
 	}
-	else if (key.compare(0, 8, "CHARSTAT") == 0)
+	else if (key.compare(0, 8, L"CHARSTAT") == 0)
 	{
 		condition = COND_CHARSTAT;
-		number_ss = stringstream(key.substr(8));
+		number_ss = wstringstream(key.substr(8));
 	}
-	else if (key.compare(0, 5, "MULTI") == 0)
+	else if (key.compare(0, 5, L"MULTI") == 0)
 	{
 		condition = COND_MULTI;
 	}
@@ -2708,12 +2711,12 @@ void SkillListCondition::Init()
 	goodTabSkills.clear();
 
 	// Build character skills list
-	BH::config->ReadAssoc("ClassSkillsList", skillList);
-	for (auto it = skillList.cbegin(); it != skillList.cend(); it++) { if (StringToBool((*it).second)) { goodClassSkills.push_back(stoi((*it).first)); } }
+	BH::config->ReadAssoc(L"ClassSkillsList", skillList);
+	for (auto it = skillList.cbegin(); it != skillList.cend(); it++) { if (WStringToBool((*it).second)) { goodClassSkills.push_back(stoi((*it).first)); } }
 
 	// Build tab skills list
-	BH::config->ReadAssoc("TabSkillsList", classSkillList);
-	for (auto it = classSkillList.cbegin(); it != classSkillList.cend(); it++) { if (StringToBool((*it).second)) { goodTabSkills.push_back(stoi((*it).first)); } }
+	BH::config->ReadAssoc(L"TabSkillsList", classSkillList);
+	for (auto it = classSkillList.cbegin(); it != classSkillList.cend(); it++) { if (WStringToBool((*it).second)) { goodTabSkills.push_back(stoi((*it).first)); } }
 }
 
 bool SkillListCondition::EvaluateInternal(UnitItemInfo* uInfo,
@@ -2796,7 +2799,7 @@ bool ResistAllCondition::EvaluateInternal(UnitItemInfo* uInfo,
 void AddCondition::Init()
 {
 	codes.clear();
-	codes = split(key, '+');
+	codes = split(key, L'+');
 	for (auto code : codes)
 	{
 		for (int j = 0; j < sizeof(skills) / sizeof(skills[0]); j++)
@@ -2867,8 +2870,8 @@ int GetStatFromList(UnitItemInfo* uInfo, int itemStat)
 	return value;
 }
 
-void HandleUnknownItemCode(char* code,
-	char* tag)
+void HandleUnknownItemCode(wchar_t* code,
+	wchar_t* tag)
 {
 	// If the DATATBLS arent loaded yet then this is expected
 	if (!IsInitialized()) { return; }

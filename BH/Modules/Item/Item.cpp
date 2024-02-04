@@ -562,29 +562,29 @@ void Item::OnGameJoin() {
 }
 
 void Item::LoadConfig() {
-	BH::config->ReadToggle("Show Ethereal", "None", true, Toggles["Show Ethereal"]);
-	BH::config->ReadToggle("Show Sockets", "None", true, Toggles["Show Sockets"]);
-	BH::config->ReadToggle("Show ILvl", "None", true, Toggles["Show iLvl"]);
-	BH::config->ReadToggle("Show Rune Numbers", "None", true, Toggles["Show Rune Numbers"]);
-	BH::config->ReadToggle("Alt Item Style", "None", true, Toggles["Alt Item Style"]);
-	BH::config->ReadToggle("Color Mod", "None", false, Toggles["Color Mod"]);
-	BH::config->ReadToggle("Shorten Item Names", "None", false, Toggles["Shorten Item Names"]);
-	BH::config->ReadToggle("Always Show Items", "None", false, Toggles["Always Show Items"]);
-	BH::config->ReadToggle("Advanced Item Display", "None", false, Toggles["Advanced Item Display"]);
-	BH::config->ReadToggle("Item Drop Notifications", "None", false, Toggles["Item Drop Notifications"]);
-	BH::config->ReadToggle("Item Close Notifications", "None", false, Toggles["Item Close Notifications"]);
-	BH::config->ReadToggle("Item Detailed Notifications", "None", false, Toggles["Item Detailed Notifications"]);
-	BH::config->ReadToggle("Verbose Notifications", "None", false, Toggles["Verbose Notifications"]);
-	BH::config->ReadToggle("Allow Unknown Items", "None", false, Toggles["Allow Unknown Items"]);
-	BH::config->ReadToggle("Always Show Item Stat Ranges", "None", true, Toggles["Always Show Item Stat Ranges"]);
+	BH::config->ReadToggle(L"Show Ethereal", L"None", true, Toggles["Show Ethereal"]);
+	BH::config->ReadToggle(L"Show Sockets", L"None", true, Toggles["Show Sockets"]);
+	BH::config->ReadToggle(L"Show ILvl", L"None", true, Toggles["Show iLvl"]);
+	BH::config->ReadToggle(L"Show Rune Numbers", L"None", true, Toggles["Show Rune Numbers"]);
+	BH::config->ReadToggle(L"Alt Item Style", L"None", true, Toggles["Alt Item Style"]);
+	BH::config->ReadToggle(L"Color Mod", L"None", false, Toggles["Color Mod"]);
+	BH::config->ReadToggle(L"Shorten Item Names", L"None", false, Toggles["Shorten Item Names"]);
+	BH::config->ReadToggle(L"Always Show Items", L"None", false, Toggles["Always Show Items"]);
+	BH::config->ReadToggle(L"Advanced Item Display", L"None", false, Toggles["Advanced Item Display"]);
+	BH::config->ReadToggle(L"Item Drop Notifications", L"None", false, Toggles["Item Drop Notifications"]);
+	BH::config->ReadToggle(L"Item Close Notifications", L"None", false, Toggles["Item Close Notifications"]);
+	BH::config->ReadToggle(L"Item Detailed Notifications", L"None", false, Toggles["Item Detailed Notifications"]);
+	BH::config->ReadToggle(L"Verbose Notifications", L"None", false, Toggles["Verbose Notifications"]);
+	BH::config->ReadToggle(L"Allow Unknown Items", L"None", false, Toggles["Allow Unknown Items"]);
+	BH::config->ReadToggle(L"Always Show Item Stat Ranges", L"None", true, Toggles["Always Show Item Stat Ranges"]);
 
 	ItemDisplay::UninitializeItemRules();
 
-	BH::config->ReadKey("Increase Filter Level", "None", filterLevelIncKey);
-	BH::config->ReadKey("Decrease Filter Level", "None", filterLevelDecKey);
-	BH::config->ReadKey("Restore Prev Filter Level", "None", filterLevelPrevKey);
-	BH::config->ReadInt("Filter Level", filterLevelSetting, 1);
-	BH::config->ReadInt("Previous Filter Level", prevFilterLevelSetting, 0);
+	BH::config->ReadKey(L"Increase Filter Level", L"None", filterLevelIncKey);
+	BH::config->ReadKey(L"Decrease Filter Level", L"None", filterLevelDecKey);
+	BH::config->ReadKey(L"Restore Prev Filter Level", L"None", filterLevelPrevKey);
+	BH::config->ReadInt(L"Filter Level", filterLevelSetting, 1);
+	BH::config->ReadInt(L"Previous Filter Level", prevFilterLevelSetting, 0);
 }
 
 void Item::DrawSettings() {
@@ -833,8 +833,8 @@ int CreateUnitItemInfo(UnitItemInfo* uInfo, UnitAny* item) {
 	uInfo->itemCode[3] = code[3] != ' ' ? code[3] : 0;
 	uInfo->itemCode[4] = 0;
 	uInfo->item = item;
-	if (ItemAttributeMap.find(std::string(uInfo->itemCode)) != ItemAttributeMap.end()) {
-		uInfo->attrs = ItemAttributeMap[std::string(uInfo->itemCode)];
+	if (ItemAttributeMap.find(UnicodeToAnsi(uInfo->itemCode)) != ItemAttributeMap.end()) {
+		uInfo->attrs = ItemAttributeMap[UnicodeToAnsi(uInfo->itemCode)];
 		return 0;
 	}
 	else {
@@ -844,21 +844,24 @@ int CreateUnitItemInfo(UnitItemInfo* uInfo, UnitAny* item) {
 
 void __fastcall Item::ItemNamePatch(wchar_t* name, UnitAny* item)
 {
-	char* szName = UnicodeToAnsi(name);
-	string itemName = szName;
+	wchar_t* szName = name;
+	wstring itemName = szName;
+	string itemNameShort = UnicodeToAnsi(szName);
 	char* code = D2COMMON_GetItemText(item->dwTxtFileNo)->szCode;
 
 	if (Toggles["Advanced Item Display"].state) {
 		UnitItemInfo uInfo;
 		if (!CreateUnitItemInfo(&uInfo, item)) {
-			GetItemName(&uInfo, itemName);
+			GetItemName(&uInfo, itemNameShort);
+			itemName = AnsiToUnicode(itemNameShort.c_str());
 		}
 		else {
-			HandleUnknownItemCode(uInfo.itemCode, "name");
+			HandleUnknownItemCode(uInfo.itemCode, L"name");
 		}
 	}
 	else {
 		OrigGetItemName(item, itemName, code);
+		itemNameShort = UnicodeToAnsi(itemName.c_str());
 	}
 
 	// Some common color codes for text strings (see TextColor enum):
@@ -878,7 +881,7 @@ void __fastcall Item::ItemNamePatch(wchar_t* name, UnitAny* item)
 	//string test3 = test_code;
 	//itemName += " {" + test3 + "}";
 
-	MultiByteToWideChar(CODE_PAGE, MB_PRECOMPOSED, itemName.c_str(), itemName.length(), name, itemName.length());
+	MultiByteToWideChar(CODE_PAGE, MB_PRECOMPOSED, itemNameShort.c_str(), itemNameShort.length(), name, itemName.length());
 	name[itemName.length()] = 0;  // null-terminate the string since MultiByteToWideChar doesn't
 	delete[] szName;
 }
@@ -899,7 +902,7 @@ void __stdcall GetItemFromPacket_NewGround(px9c* pPacket)
 	}
 	else
 	{
-		HandleUnknownItemCode(uInfo.itemCode, "from packet");
+		HandleUnknownItemCode(uInfo.itemCode, L"from packet");
 	}
 
 	return;
@@ -917,7 +920,7 @@ void __stdcall GetItemFromPacket_OldGround(px9c* pPacket)
 	}
 	else
 	{
-		HandleUnknownItemCode(uInfo.itemCode, "from packet");
+		HandleUnknownItemCode(uInfo.itemCode, L"from packet");
 	}
 
 	return;
@@ -983,7 +986,7 @@ void Item::ProcessItemPacketFilterRules(UnitItemInfo* uInfo, px9c* pPacket)
 	}
 }
 
-void Item::OrigGetItemName(UnitAny* item, string& itemName, char* code)
+void Item::OrigGetItemName(UnitAny* item, wstring& itemName, char* code)
 {
 	bool displayItemLevel = Toggles["Show iLvl"].state;
 	if (Toggles["Shorten Item Names"].state)
@@ -991,84 +994,84 @@ void Item::OrigGetItemName(UnitAny* item, string& itemName, char* code)
 		// We will also strip ilvls from these items
 		if (code[0] == 't' && code[1] == 's' && code[2] == 'c')  // town portal scroll
 		{
-			itemName = "ÿc2**ÿc0TP";
+			itemName = L"ÿc2**ÿc0TP";
 			displayItemLevel = false;
 		}
 		else if (code[0] == 'i' && code[1] == 's' && code[2] == 'c')  // identify scroll
 		{
-			itemName = "ÿc2**ÿc0ID";
+			itemName = L"ÿc2**ÿc0ID";
 			displayItemLevel = false;
 		}
 		else if (code[0] == 'v' && code[1] == 'p' && code[2] == 's')  // stamina potion
 		{
-			itemName = "Stam";
+			itemName = L"Stam";
 			displayItemLevel = false;
 		}
 		else if (code[0] == 'y' && code[1] == 'p' && code[2] == 's')  // antidote potion
 		{
-			itemName = "Anti";
+			itemName = L"Anti";
 			displayItemLevel = false;
 		}
 		else if (code[0] == 'w' && code[1] == 'm' && code[2] == 's')  // thawing potion
 		{
-			itemName = "Thaw";
+			itemName = L"Thaw";
 			displayItemLevel = false;
 		}
 		else if (code[0] == 'g' && code[1] == 'p' && code[2] == 's')  // rancid gas potion
 		{
-			itemName = "Ranc";
+			itemName = L"Ranc";
 			displayItemLevel = false;
 		}
 		else if (code[0] == 'o' && code[1] == 'p' && code[2] == 's')  // oil potion
 		{
-			itemName = "Oil";
+			itemName = L"Oil";
 			displayItemLevel = false;
 		}
 		else if (code[0] == 'g' && code[1] == 'p' && code[2] == 'm')  // choking gas potion
 		{
-			itemName = "Chok";
+			itemName = L"Chok";
 			displayItemLevel = false;
 		}
 		else if (code[0] == 'o' && code[1] == 'p' && code[2] == 'm')  // exploding potion
 		{
-			itemName = "Expl";
+			itemName = L"Expl";
 			displayItemLevel = false;
 		}
 		else if (code[0] == 'g' && code[1] == 'p' && code[2] == 'l')  // strangling gas potion
 		{
-			itemName = "Stra";
+			itemName = L"Stra";
 			displayItemLevel = false;
 		}
 		else if (code[0] == 'o' && code[1] == 'p' && code[2] == 'l')  // fulminating potion
 		{
-			itemName = "Fulm";
+			itemName = L"Fulm";
 			displayItemLevel = false;
 		}
 		else if (code[0] == 'h' && code[1] == 'p')  // healing potions
 		{
 			if (code[2] == '1')
 			{
-				itemName = "ÿc1**ÿc0Min Heal";
+				itemName = L"ÿc1**ÿc0Min Heal";
 				displayItemLevel = false;
 			}
 			else if (code[2] == '2')
 			{
-				itemName = "ÿc1**ÿc0Lt Heal";
+				itemName = L"ÿc1**ÿc0Lt Heal";
 				displayItemLevel = false;
 			}
 			else if (code[2] == '3')
 			{
-				itemName = "ÿc1**ÿc0Heal";
+				itemName = L"ÿc1**ÿc0Heal";
 				displayItemLevel = false;
 			}
 			else if (code[2] == '4')
 			{
-				itemName = "ÿc1**ÿc0Gt Heal";
+				itemName = L"ÿc1**ÿc0Gt Heal";
 				displayItemLevel = false;
 			}
 			else if (code[2] == '5')
 			{
-				itemName = "ÿc1**ÿc0Sup Heal";
+				itemName = L"ÿc1**ÿc0Sup Heal";
 				displayItemLevel = false;
 			}
 		}
@@ -1076,27 +1079,27 @@ void Item::OrigGetItemName(UnitAny* item, string& itemName, char* code)
 		{
 			if (code[2] == '1')
 			{
-				itemName = "ÿc3**ÿc0Min Mana";
+				itemName = L"ÿc3**ÿc0Min Mana";
 				displayItemLevel = false;
 			}
 			else if (code[2] == '2')
 			{
-				itemName = "ÿc3**ÿc0Lt Mana";
+				itemName = L"ÿc3**ÿc0Lt Mana";
 				displayItemLevel = false;
 			}
 			else if (code[2] == '3')
 			{
-				itemName = "ÿc3**ÿc0Mana";
+				itemName = L"ÿc3**ÿc0Mana";
 				displayItemLevel = false;
 			}
 			else if (code[2] == '4')
 			{
-				itemName = "ÿc3**ÿc0Gt Mana";
+				itemName = L"ÿc3**ÿc0Gt Mana";
 				displayItemLevel = false;
 			}
 			else if (code[2] == '5')
 			{
-				itemName = "ÿc3**ÿc0Sup Mana";
+				itemName = L"ÿc3**ÿc0Sup Mana";
 				displayItemLevel = false;
 			}
 		}
@@ -1104,12 +1107,12 @@ void Item::OrigGetItemName(UnitAny* item, string& itemName, char* code)
 		{
 			if (code[2] == 's')
 			{
-				itemName = "ÿc;**ÿc0Rejuv";
+				itemName = L"ÿc;**ÿc0Rejuv";
 				displayItemLevel = false;
 			}
 			else if (code[2] == 'l')
 			{
-				itemName = "ÿc;**ÿc0Full";
+				itemName = L"ÿc;**ÿc0Full";
 				displayItemLevel = false;
 			}
 		}
@@ -1136,19 +1139,19 @@ void Item::OrigGetItemName(UnitAny* item, string& itemName, char* code)
 		/*Essences*/
 		if (code[0] == 't' && code[1] == 'e' && code[2] == 's')
 		{
-			itemName = itemName + " (Andariel/Duriel)";
+			itemName = itemName + L" (Andariel/Duriel)";
 		}
 		if (code[0] == 'c' && code[1] == 'e' && code[2] == 'h')
 		{
-			itemName = itemName + " (Mephtisto)";
+			itemName = itemName + L" (Mephtisto)";
 		}
 		if (code[0] == 'b' && code[1] == 'e' && code[2] == 't')
 		{
-			itemName = itemName + " (Diablo)";
+			itemName = itemName + L" (Diablo)";
 		}
 		if (code[0] == 'f' && code[1] == 'e' && code[2] == 'd')
 		{
-			itemName = itemName + " (Baal)";
+			itemName = itemName + L" (Baal)";
 		}
 	}
 
@@ -1156,7 +1159,7 @@ void Item::OrigGetItemName(UnitAny* item, string& itemName, char* code)
 	{
 		if (Toggles["Show Rune Numbers"].state && D2COMMON_GetItemText(item->dwTxtFileNo)->nType == 74)
 		{
-			itemName = to_string(item->dwTxtFileNo - 609) + " - " + itemName;
+			itemName = to_wstring(item->dwTxtFileNo - 609) + L" - " + itemName;
 		}
 		else
 		{
@@ -1165,19 +1168,19 @@ void Item::OrigGetItemName(UnitAny* item, string& itemName, char* code)
 				int sockets = D2COMMON_GetUnitStat(item, STAT_SOCKETS, 0);
 				if (sockets > 0)
 				{
-					itemName += "(" + to_string(sockets) + ")";
+					itemName += L"(" + to_wstring(sockets) + L")";
 				}
 			}
 
 			if (Toggles["Show Ethereal"].state && item->pItemData->dwFlags & ITEM_ETHEREAL)
 			{
-				itemName = "Eth " + itemName;
+				itemName = L"Eth " + itemName;
 			}
 
 			/*show iLvl unless it is equal to 1*/
 			if (displayItemLevel && item->pItemData->dwItemLevel != 1)
 			{
-				itemName += " L" + to_string(item->pItemData->dwItemLevel);
+				itemName += L" L" + to_wstring(item->pItemData->dwItemLevel);
 			}
 		}
 	}
@@ -1186,16 +1189,16 @@ void Item::OrigGetItemName(UnitAny* item, string& itemName, char* code)
 		if (Toggles["Show Sockets"].state) {
 			int sockets = D2COMMON_GetUnitStat(item, STAT_SOCKETS, 0);
 			if (sockets > 0)
-				itemName += "(" + to_string(sockets) + ")";
+				itemName += L"(" + to_wstring(sockets) + L")";
 		}
 		if (Toggles["Show Ethereal"].state && item->pItemData->dwFlags & ITEM_ETHEREAL)
-			itemName += "(Eth)";
+			itemName += L"(Eth)";
 
 		if (displayItemLevel)
-			itemName += "(L" + to_string(item->pItemData->dwItemLevel) + ")";
+			itemName += L"(L" + to_wstring(item->pItemData->dwItemLevel) + L")";
 
 		if (Toggles["Show Rune Numbers"].state && D2COMMON_GetItemText(item->dwTxtFileNo)->nType == 74)
-			itemName = "[" + to_string(item->dwTxtFileNo - 609) + "]" + itemName;
+			itemName = L"[" + to_wstring(item->dwTxtFileNo - 609) + L"]" + itemName;
 	}
 
 	/*Affix (Colors) Color Mod*/
@@ -1220,7 +1223,7 @@ void Item::OrigGetItemName(UnitAny* item, string& itemName, char* code)
 			if ((code[0] == 'u') ||
 				(code[0] == 'p' && code[1] == 'a' && code[2] >= 'b'))
 			{
-				itemName = "ÿc;" + itemName;
+				itemName = L"ÿc;" + itemName;
 			}
 		}
 		/*Runes*/
@@ -1228,33 +1231,33 @@ void Item::OrigGetItemName(UnitAny* item, string& itemName, char* code)
 		{
 			if (code[1] == '0')
 			{
-				itemName = "ÿc0" + itemName;
+				itemName = L"ÿc0" + itemName;
 			}
 			else if (code[1] == '1')
 			{
 				if (code[2] <= '6')
 				{
-					itemName = "ÿc4" + itemName;
+					itemName = L"ÿc4" + itemName;
 				}
 				else
 				{
-					itemName = "ÿc8" + itemName;
+					itemName = L"ÿc8" + itemName;
 				}
 			}
 			else if (code[1] == '2')
 			{
 				if (code[2] <= '2')
 				{
-					itemName = "ÿc8" + itemName;
+					itemName = L"ÿc8" + itemName;
 				}
 				else
 				{
-					itemName = "ÿc1" + itemName;
+					itemName = L"ÿc1" + itemName;
 				}
 			}
 			else if (code[1] == '3')
 			{
-				itemName = "ÿc1" + itemName;
+				itemName = L"ÿc1" + itemName;
 			}
 		}
 	}

@@ -72,8 +72,8 @@ void MapNotify::OnDraw() {
 				uInfo.itemCode[2] = code[2] != ' ' ? code[2] : 0;
 				uInfo.itemCode[3] = code[3] != ' ' ? code[3] : 0;
 				uInfo.itemCode[4] = 0;
-				if (ItemAttributeMap.find(uInfo.itemCode) != ItemAttributeMap.end()) {
-					uInfo.attrs = ItemAttributeMap[uInfo.itemCode];
+				if (ItemAttributeMap.find(UnicodeToAnsi(uInfo.itemCode)) != ItemAttributeMap.end()) {
+					uInfo.attrs = ItemAttributeMap[UnicodeToAnsi(uInfo.itemCode)];
 					for (vector<Rule*>::iterator it = MapRuleList.begin(); it != MapRuleList.end(); it++) {
 						int filterLevel = Item::GetFilterLevel();
 						if (filterLevel != 0 && (*it)->action.pingLevel < filterLevel && (*it)->action.pingLevel != -1) continue;
@@ -82,10 +82,10 @@ void MapNotify::OnDraw() {
 							if ((unit->dwFlags & UNITFLAG_REVEALED) == 0x0
 								&& (*BH::MiscToggles2)["Item Detailed Notifications"].state) {
 								if ((*BH::MiscToggles2)["Item Close Notifications"].state || (dwFlags & ITEM_NEW)) {
-									std::string itemName = GetItemName(unit);
+									std::wstring itemName = GetItemName(unit);
 									size_t start_pos = 0;
 									while ((start_pos = itemName.find('\n', start_pos)) != std::string::npos) {
-										itemName.replace(start_pos, 1, " - ");
+										itemName.replace(start_pos, 1, L" - ");
 										start_pos += 3;
 									}
 									PrintText(ItemColorFromQuality(unit->pItemData->dwQuality), "%s", itemName.c_str());
@@ -130,8 +130,8 @@ void MapNotify::OnAutomapDraw() {
 					uInfo.itemCode[2] = code[2] != ' ' ? code[2] : 0;
 					uInfo.itemCode[3] = code[3] != ' ' ? code[3] : 0;
 					uInfo.itemCode[4] = 0;
-					if (ItemAttributeMap.find(uInfo.itemCode) != ItemAttributeMap.end()) {
-						uInfo.attrs = ItemAttributeMap[uInfo.itemCode];
+					if (ItemAttributeMap.find(UnicodeToAnsi(uInfo.itemCode)) != ItemAttributeMap.end()) {
+						uInfo.attrs = ItemAttributeMap[UnicodeToAnsi(uInfo.itemCode)];
 						const vector<Action> actions = map_action_cache.Get(&uInfo);
 						for (auto& action : actions) {
 							auto color = action.colorOnMap;
@@ -158,7 +158,7 @@ void MapNotify::OnAutomapDraw() {
 						}
 					}
 					else {
-						HandleUnknownItemCode(uInfo.itemCode, "on map");
+						HandleUnknownItemCode(uInfo.itemCode, L"on map");
 					}
 				}
 			}

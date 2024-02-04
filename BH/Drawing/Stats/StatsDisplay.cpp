@@ -227,14 +227,14 @@ void StatsDisplay::LoadConfig()
 	int height = 342 + 8 * 7 + 16 * 10;
 	customStats.clear();
 
-	BH::config->ReadToggle("Stats on Right", "None", false, Toggles["Stats on Right"]);
+	BH::config->ReadToggle(L"Stats on Right", L"None", false, Toggles["Stats on Right"]);
 
-	vector<pair<string, string>> stats;
-	BH::config->ReadMapList("Stat Screen", stats);
+	vector<pair<wstring, wstring>> stats;
+	BH::config->ReadMapList(L"Stat Screen", stats);
 	for (unsigned int i = 0; i < stats.size(); i++)
 	{
 		int statId = -1;
-		stringstream ss(Trim(stats[i].first));
+		wstringstream ss(Trim(stats[i].first));
 		if (!(ss >> statId).fail() && statId < STAT_MAX)
 		{
 			DisplayedStat* customStat = new DisplayedStat();
@@ -244,7 +244,7 @@ void StatsDisplay::LoadConfig()
 			// Getting rid of the check for sp->saveParamBits > 0 to display weapon mastery values
 			// if a param is supplied it will be used
 			int          num = -1;
-			stringstream ss(Trim(stats[i].second));
+			wstringstream ss(Trim(stats[i].second));
 			if (!(ss >> num).fail() && num > 0)
 			{
 				customStat->useValue = true;
