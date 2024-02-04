@@ -65,8 +65,8 @@ struct BHApp {
 		SettingsInt refreshTime = { 1500, 1500, 1500, 10000 };
 		SettingsAssoc whisperColor = { {},
 			{
-				{"*chat", "9"},
-				{"*hc", "7"}
+				{L"*chat", L"9"},
+				{L"*hc", L"7"}
 			}
 		};
 	} bnet;
@@ -134,12 +134,12 @@ struct BHApp {
 	struct {
 		SettingsArray automapInfo = { {},
 		{
-			"Name: %GAMENAME%",
-			"Password: %GAMEPASS%",
-			"%LEVEL%",
-			"%GAMEDIFF%",
-			"%GAMETIME%",
-			"Ping: %PING%"
+			L"Name: %GAMENAME%",
+			L"Password: %GAMEPASS%",
+			L"%LEVEL%",
+			L"%GAMEDIFF%",
+			L"%GAMETIME%",
+			L"Ping: %PING%"
 		}
 		};
 		SettingsAssoc additionalStats = {};
@@ -149,17 +149,17 @@ struct BHApp {
 		SettingsToggle includeEquipment = { {}, {0, true} };
 		SettingsToggle exportOnMenu = { {}, {0, false} };
 		SettingsKey exportGear = { 0, 0 };
-		SettingsString mustacheDefault = { "", "json" };
-		SettingsArray mustacheOptions = { {}, {"json", "stash"} };
+		SettingsString mustacheDefault = { L"", L"json" };
+		SettingsArray mustacheOptions = { {}, {L"json", L"stash"} };
 		SettingsAssoc mustacheFormat = { {},
 			{
-				{"stats", "{{#defense}}\n\n    >{{defense}} defense{{/defense}}{{#stats}}\n\n    > {{value}}{{#range}} ({{min}}-{{max}}){{/range}} {{^skill}}{{name}}{{/skill}}{{skill}}{{/stats}}"},
-				{"header-unique", "{{#quality=Unique}}**{{^name}}{{type}}{{/name}}{{name}}** (L{{iLevel}}){{#sockets}}[{{sockets}}]{{/sockets}}{{/quality}}"},
-				{"header-magic", "{{#quality$Magic|Rare}}**{{^name}}{{type}}{{/name}}{{name}}** (L{{iLevel}}){{#sockets}}[{{sockets}}]{{/sockets}}{{/quality}}"},
-				{"header-else", "{{#quality^Unique|Magic|Rare}}{{^isRuneword}}{{^name}}{{type}}{{/name}}{{name}}{{/isRuneword}}{{#isRuneword}}**{{runeword}}** {{type}}{{/isRuneword}} (L{{iLevel}}){{#sockets}}[{{sockets}}]{{/sockets}}{{/quality}}"},
-				{"header", "{{#isEthereal}}Eth {{/isEthereal}}{{>header-unique}}{{>header-magic}}{{>header-else}}{{#count}} **x{{count}}**{{/count}}"},
-				{"item", "{{>header}}{{>stats}}{{^isRuneword}}{{#socketed}}\n\n  * {{>>item}}{{/socketed}}{{/isRuneword}}\n"},
-				{"stash", "{{#this}}* {{>item}}\n\n{{/this}}"}
+				{L"stats", L"{{#defense}}\n\n    >{{defense}} defense{{/defense}}{{#stats}}\n\n    > {{value}}{{#range}} ({{min}}-{{max}}){{/range}} {{^skill}}{{name}}{{/skill}}{{skill}}{{/stats}}"},
+				{L"header-unique", L"{{#quality=Unique}}**{{^name}}{{type}}{{/name}}{{name}}** (L{{iLevel}}){{#sockets}}[{{sockets}}]{{/sockets}}{{/quality}}"},
+				{L"header-magic", L"{{#quality$Magic|Rare}}**{{^name}}{{type}}{{/name}}{{name}}** (L{{iLevel}}){{#sockets}}[{{sockets}}]{{/sockets}}{{/quality}}"},
+				{L"header-else", L"{{#quality^Unique|Magic|Rare}}{{^isRuneword}}{{^name}}{{type}}{{/name}}{{name}}{{/isRuneword}}{{#isRuneword}}**{{runeword}}** {{type}}{{/isRuneword}} (L{{iLevel}}){{#sockets}}[{{sockets}}]{{/sockets}}{{/quality}}"},
+				{L"header", L"{{#isEthereal}}Eth {{/isEthereal}}{{>header-unique}}{{>header-magic}}{{>header-else}}{{#count}} **x{{count}}**{{/count}}"},
+				{L"item", L"{{>header}}{{>stats}}{{^isRuneword}}{{#socketed}}\n\n  * {{>>item}}{{/socketed}}{{/isRuneword}}\n"},
+				{L"stash", L"{{#this}}* {{>item}}\n\n{{/this}}"}
 			}
 		};
 	} stash;

@@ -7,7 +7,7 @@
 using json = nlohmann::ordered_json;
 
 
-int Config::GetInt(json::json_pointer sectionKey, std::string key, SettingsInt def)
+int Config::GetInt(json::json_pointer sectionKey, std::wstring key, SettingsInt def)
 {
 	int val = def.defValue;
 	int min = def.minValue ? def.minValue : INT_MIN;
@@ -486,10 +486,10 @@ void Config::SetConfigName(std::string name) {
 	configName = name;
 }
 
-vector<pair<string, string>> Config::ReadMapList(std::string key, vector<pair<string, string>>& values) {
+vector<pair<wstring, wstring>> Config::ReadMapList(std::wstring key, vector<pair<wstring, wstring>>& values) {
 
-	for (vector<pair<string, string>>::iterator it = orderedKeyVals.begin(); it != orderedKeyVals.end(); it++) {
-		if (!(*it).first.find(key + "[")) {
+	for (vector<pair<wstring, wstring>>::iterator it = orderedKeyVals.begin(); it != orderedKeyVals.end(); it++) {
+		if (!(*it).first.find(key + L"[")) {
 			pair<string, string> assoc;
 			//Pull the value from between the []'s
 			assoc.first = (*it).first.substr((*it).first.find("[") + 1, (*it).first.length() - (*it).first.find("[") - 2);

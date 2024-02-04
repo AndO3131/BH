@@ -7,24 +7,24 @@
 
 // All the types able to be combined with the + operator
 #define COMBO_STATS					\
-	{"LIFE", STAT_MAXHP},			\
-	{"MANA", STAT_MAXMANA},			\
-	{"STR", STAT_STRENGTH},			\
-	{"DEX", STAT_DEXTERITY},		\
-	{"CRES", STAT_COLDRESIST},		\
-	{"FRES", STAT_FIRERESIST},		\
-	{"LRES", STAT_LIGHTNINGRESIST},	\
-	{"PRES", STAT_POISONRESIST},	\
-	{"MINDMG", STAT_MINIMUMDAMAGE},	\
-	{"MAXDMG", STAT_MAXIMUMDAMAGE}, \
-	{"EDEF", STAT_ENHANCEDDEFENSE},	\
-	{"EDAM", STAT_ENHANCEDMAXIMUMDAMAGE}, \
-	{"FCR", STAT_FASTERCAST},		\
-	{"AR", STAT_ATTACKRATING},		\
-	{"STAT3", STAT_VITALITY},		\
-	{"STAT60", STAT_LIFELEECH},		\
-	{"STAT62", STAT_MANALEECH},		\
-	{"REPLIFE", STAT_REPLENISHLIFE},
+	{L"LIFE", STAT_MAXHP},			\
+	{L"MANA", STAT_MAXMANA},			\
+	{L"STR", STAT_STRENGTH},			\
+	{L"DEX", STAT_DEXTERITY},		\
+	{L"CRES", STAT_COLDRESIST},		\
+	{L"FRES", STAT_FIRERESIST},		\
+	{L"LRES", STAT_LIGHTNINGRESIST},	\
+	{L"PRES", STAT_POISONRESIST},	\
+	{L"MINDMG", STAT_MINIMUMDAMAGE},	\
+	{L"MAXDMG", STAT_MAXIMUMDAMAGE}, \
+	{L"EDEF", STAT_ENHANCEDDEFENSE},	\
+	{L"EDAM", STAT_ENHANCEDMAXIMUMDAMAGE}, \
+	{L"FCR", STAT_FASTERCAST},		\
+	{L"AR", STAT_ATTACKRATING},		\
+	{L"STAT3", STAT_VITALITY},		\
+	{L"STAT60", STAT_LIFELEECH},		\
+	{L"STAT62", STAT_MANALEECH},		\
+	{L"REPLIFE", STAT_REPLENISHLIFE},
 
 // For ignoring size
 std::vector<std::string> colorreps =
@@ -49,42 +49,42 @@ std::vector<std::string> colorreps =
 
 // All colors here must also be defined in MAP_COLOR_REPLACEMENTS
 #define COLOR_REPLACEMENTS	\
-	{"WHITE", "\xFF""c0"},		\
-	{"RED", "\xFF""c1"},		\
-	{"GREEN", "\xFF""c2"},		\
-	{"BLUE", "\xFF""c3"},		\
-	{"GOLD", "\xFF""c4"},		\
-	{"GRAY", "\xFF""c5"},		\
-	{"BLACK", "\xFF""c6"},		\
-	{"TAN", "\xFF""c7"},		\
-	{"ORANGE", "\xFF""c8"},		\
-	{"YELLOW", "\xFF""c9"},		\
-	{"PURPLE", "\xFF""c;"},		\
-	{"DARK_GREEN", "\xFF""c:"},	\
-	{"CORAL", "\xFF" "c\x06"},		\
-	{"SAGE", "\xFF" "c\x07"},		\
-	{"TEAL", "\xFF" "c\x09"},		\
-	{"LIGHT_GRAY", "\xFF" "c\x0C"}
+	{L"WHITE", "\xc3\xbf\x63\x30"},		\
+	{L"RED", "\xc3\xbf\x63\x31"},		\
+	{L"GREEN", "\xc3\xbf\x63\x32"},		\
+	{L"BLUE", "\xc3\xbf\x63\x33"},		\
+	{L"GOLD", "\xc3\xbf\x63\x34"},		\
+	{L"GRAY", "\xc3\xbf\x63\x35"},		\
+	{L"BLACK", "\xc3\xbf\x63\x36"},		\
+	{L"TAN", "\xc3\xbf\x63\x37"},			\
+	{L"ORANGE", "\xc3\xbf\x63\x38"},		\
+	{L"YELLOW", "\xc3\xbf\x63\x39"},		\
+	{L"PURPLE", "\xc3\xbf\x63\x3b"},		\
+	{L"DARK_GREEN", "\xc3\xbf\x63\x3a"},	\
+	{L"CORAL", "\xc3\xbf\x63\x06"},		\
+	{L"SAGE", "\xc3\xbf\x63\x07"},		\
+	{L"TEAL", "\xc3\xbf\x63\x09"},		\
+	{L"LIGHT_GRAY", "\xc3\xbf\x63\x0C"}
 
 #define MAP_COLOR_WHITE     0x20
 
 #define MAP_COLOR_REPLACEMENTS	\
-	{"WHITE", 0x20},		\
-	{"RED", 0x0A},			\
-	{"GREEN", 0x84},		\
-	{"BLUE", 0x97},			\
-	{"GOLD", 0x0D},			\
-	{"GRAY", 0xD0},			\
-	{"BLACK", 0x00},		\
-	{"TAN", 0x5A},			\
-	{"ORANGE", 0x60},		\
-	{"YELLOW", 0x0C},		\
-	{"PURPLE", 0x9B},		\
-	{"DARK_GREEN", 0x76}, \
-	{"CORAL", 0x66}, \
-	{"SAGE", 0x82}, \
-	{"TEAL", 0xCB}, \
-	{"LIGHT_GRAY", 0xD6}
+	{L"WHITE", 0x20},		\
+	{L"RED", 0x0A},			\
+	{L"GREEN", 0x84},		\
+	{L"BLUE", 0x97},			\
+	{L"GOLD", 0x0D},			\
+	{L"GRAY", 0xD0},			\
+	{L"BLACK", 0x00},		\
+	{L"TAN", 0x5A},			\
+	{L"ORANGE", 0x60},		\
+	{L"YELLOW", 0x0C},		\
+	{L"PURPLE", 0x9B},		\
+	{L"DARK_GREEN", 0x76}, \
+	{L"CORAL", 0x66}, \
+	{L"SAGE", 0x82}, \
+	{L"TEAL", 0xCB}, \
+	{L"LIGHT_GRAY", 0xD6}
 
 std::map<std::string, int> code_to_dwtxtfileno = {
 		{"hax", 0},
@@ -747,8 +747,8 @@ SkillReplace skills[] = {
 	COMBO_STATS
 };
 
-std::map<std::string, int>   UnknownItemCodes;
-vector<pair<string, string>> rules;
+std::map<std::wstring, int>   UnknownItemCodes;
+vector<pair<wstring, wstring>> rules;
 vector<Rule*>                RuleList;
 vector<Rule*>                MapRuleList;
 vector<Rule*>                IgnoreRuleList;
@@ -925,7 +925,7 @@ vector<Action> MapActionLookupCache::make_cached_T(UnitItemInfo* uInfo)
 string MapActionLookupCache::to_str(const vector<Action>& actions)
 {
 	string name;
-	for (auto& action : actions) { name += action.name + " "; }
+	for (auto& action : actions) { name += (string)UnicodeToAnsi(action.name.c_str()) + " "; }
 	return name;
 }
 
@@ -946,7 +946,7 @@ void GetItemName(UnitItemInfo* uInfo,
 
 void SubstituteNameVariables(UnitItemInfo* uInfo,
 	string& name,
-	const string& action_name,
+	const wstring& action_name,
 	BOOL          bLimit)
 {
 	char origName[MAX_ITEM_TEXT_SIZE], sockets[4], code[5], ilvl[4], alvl[4], craftalvl[4], runename[16] = "", runenum[4] = "0";
@@ -1037,50 +1037,50 @@ void SubstituteNameVariables(UnitItemInfo* uInfo,
 		sprintf_s(gemtype, "%s", GetGemTypeString(GetGemType(uInfo->attrs)));
 	}
 	ActionReplace replacements[] = {
-		{ "NAME", origName },
-		{ "SOCKETS", sockets },
-		{ "RUNENUM", runenum },
-		{ "RUNENAME", runename },
-		{ "GEMLEVEL", gemlevel },
-		{ "GEMTYPE", gemtype },
-		{ "ILVL", ilvl },
-		{ "ALVL", alvl },
-		{ "CRAFTALVL", craftalvl },
-		{ "LVLREQ", lvlreq },
-		{ "WPNSPD", wpnspd },
-		{ "RANGE", rangeadder },
-		{ "CODE", code },
-		{ "NL", "\n" },
-		{ "PRICE", sellValue },
-		{ "QTY", qty },
-		{ "RES", allres},
-		{ "ED", ed},
+		{ L"NAME", origName },
+		{ L"SOCKETS", sockets },
+		{ L"RUNENUM", runenum },
+		{ L"RUNENAME", runename },
+		{ L"GEMLEVEL", gemlevel },
+		{ L"GEMTYPE", gemtype },
+		{ L"ILVL", ilvl },
+		{ L"ALVL", alvl },
+		{ L"CRAFTALVL", craftalvl },
+		{ L"LVLREQ", lvlreq },
+		{ L"WPNSPD", wpnspd },
+		{ L"RANGE", rangeadder },
+		{ L"CODE", code },
+		{ L"NL", "\n" },
+		{ L"PRICE", sellValue },
+		{ L"QTY", qty },
+		{ L"RES", allres},
+		{ L"ED", ed},
 		COLOR_REPLACEMENTS
 	};
 	int nColorCodesSize = 0;
-	name.assign(action_name);
+	name.assign(UnicodeToAnsi(action_name.c_str()));
 	for (int n = 0; n < sizeof(replacements) / sizeof(replacements[0]); n++)
 	{
-		while (name.find("%" + replacements[n].key + "%") != string::npos)
+		while (name.find("%" + (string)UnicodeToAnsi(replacements[n].key.c_str()) + "%") != string::npos)
 		{
-			if (bLimit && replacements[n].key == "NL")
+			if (bLimit && replacements[n].key == L"NL")
 			{
 				// Allow %NL% on identified, magic+ item names, and items within shops
 				if ((uInfo->item->pItemData->dwFlags & ITEM_IDENTIFIED) > 0 &&
 					(uInfo->item->pItemData->dwQuality >= ITEM_QUALITY_MAGIC || (uInfo->item->pItemData->dwFlags & ITEM_RUNEWORD) > 0) ||
 					inShop)
 				{
-					name.replace(name.find("%" + replacements[n].key + "%"), replacements[n].key.length() + 2, replacements[n].value);
+					name.replace(name.find("%" + (string)UnicodeToAnsi(replacements[n].key.c_str()) + "%"), replacements[n].key.length() + 2, replacements[n].value);
 				}
 				// Remove it on everything else
 				else
 				{
-					name.replace(name.find("%" + replacements[n].key + "%"), replacements[n].key.length() + 2, "");
+					name.replace(name.find("%" + (string)UnicodeToAnsi(replacements[n].key.c_str()) + "%"), replacements[n].key.length() + 2, "");
 				}
 			}
 			else
 			{
-				name.replace(name.find("%" + replacements[n].key + "%"), replacements[n].key.length() + 2, replacements[n].value);
+				name.replace(name.find("%" + (string)UnicodeToAnsi(replacements[n].key.c_str()) + "%"), replacements[n].key.length() + 2, replacements[n].value);
 			}
 		}
 	}
@@ -1387,17 +1387,17 @@ namespace ItemDisplay
 		item_display_initialized = true;
 		rules.clear();
 		ResetCaches();
-		BH::lootFilter->ReadMapList("ItemDisplay", rules);
+		BH::lootFilter->ReadMapList(L"ItemDisplay", rules);
 		for (unsigned int i = 0; i < rules.size(); i++)
 		{
-			string         buf;
-			stringstream   ss(rules[i].first);
-			vector<string> tokens;
+			wstring         buf;
+			wstringstream   ss(rules[i].first);
+			vector<wstring> tokens;
 			while (ss >> buf) { tokens.push_back(buf); }
 
 			LastConditionType = CT_None;
 			vector<Condition*> RawConditions;
-			for (vector<string>::iterator tok = tokens.begin(); tok < tokens.end(); tok++) { Condition::BuildConditions(RawConditions, (*tok)); }
+			for (vector<wstring>::iterator tok = tokens.begin(); tok < tokens.end(); tok++) { Condition::BuildConditions(RawConditions, (*tok)); }
 			Rule* r = new Rule(RawConditions, &(rules[i].second));
 
 			RuleList.push_back(r);
@@ -1418,10 +1418,10 @@ namespace ItemDisplay
 		item->ItemFilterNames.clear();
 		item->ItemFilterNames.push_back("0 - Show All Items");
 
-		vector<pair<string, string>> filterDefinitions;
-		BH::lootFilter->ReadMapList("ItemDisplayFilterName", filterDefinitions);
+		vector<pair<wstring, wstring>> filterDefinitions;
+		BH::lootFilter->ReadMapList(L"ItemDisplayFilterName", filterDefinitions);
 		for (unsigned int i = 0; i < filterDefinitions.size(); i++) {
-			item->ItemFilterNames.push_back(to_string(i + 1) + " - " + filterDefinitions[i].second);
+			item->ItemFilterNames.push_back(to_string(i + 1) + L" - " + filterDefinitions[i].second);
 
 			// Max 9 entries
 			if (i >= 8) {
@@ -1458,17 +1458,17 @@ namespace ItemDisplay
 }
 
 Rule::Rule(vector<Condition*>& inputConditions,
-	string* str)
+	wstring* str)
 {
 	Condition::ProcessConditions(inputConditions, conditions);
 	BuildAction(str, &action);
 	conditionStack.reserve(conditions.size()); // TODO: too large?
 }
 
-void BuildAction(string* str,
+void BuildAction(wstring* str,
 	Action* act)
 {
-	act->name = string(str->c_str());
+	act->name = wstring(str->c_str());
 
 	//// upcase all text in a %replacement_string%
 	//// for some reason \w wasn't catching _, so I added it to the groups
@@ -1506,7 +1506,7 @@ void BuildAction(string* str,
 
 	// legacy support:
 	size_t map = act->name.find("%MAP%");
-	if (map != string::npos)
+	if (map != wstring::npos)
 	{
 		int          mapColor = MAP_COLOR_WHITE;
 		size_t       lastColorPos = 0;
@@ -1515,8 +1515,8 @@ void BuildAction(string* str,
 		};
 		for (int n = 0; n < sizeof(colors) / sizeof(colors[0]); n++)
 		{
-			size_t pos = act->name.find("%" + colors[n].key + "%");
-			if (pos != string::npos && pos < map && pos >= lastColorPos)
+			size_t pos = act->name.find(L"%" + colors[n].key + L"%");
+			if (pos != wstring::npos && pos < map && pos >= lastColorPos)
 			{
 				mapColor = colors[n].value;
 				lastColorPos = pos;

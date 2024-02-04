@@ -52,7 +52,7 @@ public:
 
 	static const string tokenDelims;
 	static void         BuildConditions(vector<Condition*>& conditions,
-		string              token);
+		wstring              token);
 	static void ProcessConditions(vector<Condition*>& rawConditions,
 		vector<Condition*>& processedConditions);
 	static void AddOperand(vector<Condition*>& conditions,
@@ -790,27 +790,27 @@ extern FalseCondition* falseCondition;
 
 struct ActionReplace
 {
-	string key;
+	wstring key;
 	string value;
 };
 
 struct ColorReplace
 {
-	string key;
+	wstring key;
 	int    value;
 };
 
 struct SkillReplace
 {
-	string key;
+	wstring key;
 	int    value;
 };
 
 struct Action
 {
 	bool   stopProcessing;
-	string name;
-	string description;
+	wstring name;
+	wstring description;
 	int    colorOnMap;
 	int    borderColor;
 	int    dotColor;
@@ -828,8 +828,8 @@ struct Action
 		notifyColor(UNDEFINED_COLOR),
 		pingLevel(-1),
 		stopProcessing(true),
-		name(""),
-		description("")
+		name(L""),
+		description(L"")
 	{
 	}
 };
@@ -841,7 +841,7 @@ struct Rule
 	vector<Condition*> conditionStack;
 
 	Rule(vector<Condition*>& inputConditions,
-		string* str);
+		wstring *str);
 
 	// TODO: Should this really be defined in the header? This will force it to be inlined AFAIK. -ybd
 	// Evaluate conditions which are in Reverse Polish Notation

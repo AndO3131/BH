@@ -39,8 +39,8 @@ struct SettingsBool {
 };
 
 struct SettingsString {
-	std::string value;
-	std::string defValue;
+	std::wstring value;
+	std::wstring defValue;
 };
 
 struct SettingsToggle {
@@ -54,13 +54,13 @@ struct SettingsKey {
 };
 
 struct SettingsArray {
-	std::vector<std::string> values;
-	std::vector<std::string> defValues;
+	std::vector<std::wstring> values;
+	std::vector<std::wstring> defValues;
 };
 
 struct SettingsAssoc {
-	std::map<std::string, std::string> values;
-	std::map<std::string, std::string> defValues;
+	std::map<std::wstring, std::wstring> values;
+	std::map<std::wstring, std::wstring> defValues;
 };
 
 enum ConfigType {
@@ -78,9 +78,9 @@ enum ConfigType {
 class ConfigEntry {
 public:
 	ConfigType type;
-	std::string key;
-	std::string value;
-	std::string comment;
+	std::wstring key;
+	std::wstring value;
+	std::wstring comment;
 	int line;
 	void* pointer;
 	Toggle* toggle;
@@ -99,8 +99,8 @@ class Config {
 private:
 	std::string configName;
 	// Only used in lootfilter Parse()
-	std::map<std::string, ConfigEntry> contents;
-	vector<pair<string, string>> orderedKeyVals;
+	std::map<std::wstring, ConfigEntry> contents;
+	vector<pair<wstring, wstring>> orderedKeyVals;
 public:
 	void SaveConfig();
 	void LoadConfig();
@@ -110,16 +110,16 @@ public:
 	void SetConfigName(std::string name);
 
 	// Functions to read values from the configuration
-	int GetInt(json::json_pointer sectionKey, std::string key, SettingsInt def);
-	float GetFloat(json::json_pointer sectionKey, std::string key, SettingsFloat def);
-	bool GetBool(json::json_pointer sectionKey, std::string key, SettingsBool def);
-	std::string GetString(json::json_pointer sectionKey, std::string key, SettingsString def);
-	Toggle GetToggle(json::json_pointer sectionKey, std::string key, SettingsToggle def);
-	unsigned int GetKey(json::json_pointer sectionKey, std::string key, SettingsKey def);
-	std::vector<std::string> GetArray(json::json_pointer sectionKey, std::string key, SettingsArray def);
-	std::map<std::string, std::string> GetAssoc(json::json_pointer sectionKey, std::string key, SettingsAssoc def);
+	int GetInt(json::json_pointer sectionKey, std::wstring key, SettingsInt def);
+	float GetFloat(json::json_pointer sectionKey, std::wstring key, SettingsFloat def);
+	bool GetBool(json::json_pointer sectionKey, std::wstring key, SettingsBool def);
+	std::wstring GetString(json::json_pointer sectionKey, std::wstring key, SettingsString def);
+	Toggle GetToggle(json::json_pointer sectionKey, std::wstring key, SettingsToggle def);
+	unsigned int GetKey(json::json_pointer sectionKey, std::wstring key, SettingsKey def);
+	std::vector<std::wstring> GetArray(json::json_pointer sectionKey, std::wstring key, SettingsArray def);
+	std::map<std::wstring, std::wstring> GetAssoc(json::json_pointer sectionKey, std::wstring key, SettingsAssoc def);
 
 	// Functions to read values from the lootfilter configuration
 	bool Parse();
-	vector<pair<string, string>> ReadMapList(std::string key, vector<pair<string,string>>& value);
+	vector<pair<wstring, wstring>> ReadMapList(std::wstring key, vector<pair<wstring,wstring>>& value);
 };
