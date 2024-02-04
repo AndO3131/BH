@@ -20,7 +20,10 @@ private:
 	int lkLinesColor;
 	int mbMonColor;
 	unsigned int maxGhostSelection;
+	unsigned int reloadConfig;
+	unsigned int reloadConfigCtrl;
 	std::map<string, unsigned int> TextColorMap;
+	map<std::string, Toggle> Toggles;
 	Drawing::UITab* settingsTab;
 
 public:

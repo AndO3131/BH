@@ -25,6 +25,7 @@ struct StateWarning {
 class ScreenInfo : public Module {
 	private:
 		map<string, string> SkillWarnings;
+		std::vector<std::string> automapInfo;
 		std::map<DWORD, string> SkillWarningMap;
 		std::deque<StateWarning*> CurrentWarnings;
 		Drawing::Texthook* bhText;
@@ -43,6 +44,8 @@ class ScreenInfo : public Module {
 
 		void ScreenInfo::drawExperienceInfo();
 	public:
+		static map<std::string, Toggle> Toggles;
+
 		ScreenInfo() :
 			Module("Screen Info"), warningTicks(BHGetTickCount()), packetRequests(0),
 			MephistoBlocked(false), DiabloBlocked(false), BaalBlocked(false), ReceivedQuestPacket(false),

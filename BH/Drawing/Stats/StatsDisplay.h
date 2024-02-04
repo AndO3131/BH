@@ -56,9 +56,11 @@ namespace Drawing
 	class StatsDisplay : public HookGroup
 	{
 	private:
+		std::map<std::string, Toggle> Toggles;
 		static StatsDisplay* display;
 		std::string                   name;
 		unsigned int                  x, y, xSize, ySize;
+		unsigned int                  statsKey;
 		bool                          active, minimized;
 		CRITICAL_SECTION              crit;
 		std::vector<DisplayedStat*>   customStats;

@@ -624,6 +624,8 @@ private:
 	BYTE                     operation;
 	unsigned int             type;
 	unsigned int             targetStat;
+	std::map<string, string> classSkillList;
+	std::map<string, string> skillList;
 	vector<unsigned int>     goodClassSkills;
 	vector<unsigned int>     goodTabSkills;
 	void                     Init();

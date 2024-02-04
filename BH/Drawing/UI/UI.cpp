@@ -15,11 +15,18 @@ UI::UI(std::string name, unsigned int xSize, unsigned int ySize) {
 	SetXSize(xSize);
 	SetYSize(ySize);
 	SetName(name);
-	SetX(App.bhui.openedX.value);
-	SetY(App.bhui.openedY.value);
-	SetMinimizedX(App.bhui.minimizedX.value);
-	SetMinimizedY(App.bhui.minimizedY.value);
-	if (App.bhui.isMinimized.value) {
+	string path = BH::path + "UI.ini";
+	int x = GetPrivateProfileInt(name.c_str(), "X", 0, path.c_str());
+	SetX(x);
+	int y = GetPrivateProfileInt(name.c_str(), "Y", 0, path.c_str());
+	SetY(y);
+	int minX = GetPrivateProfileInt(name.c_str(), "minimizedX", MINIMIZED_X_POS, path.c_str());
+	SetMinimizedX(minX);
+	int minY = GetPrivateProfileInt(name.c_str(), "minimizedY", MINIMIZED_Y_POS, path.c_str());
+	SetMinimizedY(minY);
+	char activeStr[20];
+	GetPrivateProfileString(name.c_str(), "Minimized", "true", activeStr, 20, path.c_str());
+	if (StringToBool(activeStr)) {
 		SetMinimized(true);
 		Minimized.push_back(this);
 	} else {
@@ -31,12 +38,11 @@ UI::UI(std::string name, unsigned int xSize, unsigned int ySize) {
 }
 UI::~UI() {
 	Lock();
-	App.bhui.isMinimized.value = IsMinimized();
-	App.bhui.openedX.value = GetX();
-	App.bhui.openedY.value = GetY();
-	App.bhui.minimizedX.value = GetMinimizedX();
-	App.bhui.minimizedY.value = GetMinimizedY();
-	App.config->SaveConfig();
+	WritePrivateProfileString(name.c_str(), "X", to_string<unsigned int>(GetX()).c_str(), string(BH::path + "UI.ini").c_str());
+	WritePrivateProfileString(name.c_str(), "Y", to_string<unsigned int>(GetY()).c_str(), string(BH::path + "UI.ini").c_str());
+	WritePrivateProfileString(name.c_str(), "Minimized", to_string<bool>(IsMinimized()).c_str(), string(BH::path + "UI.ini").c_str());
+	WritePrivateProfileString(name.c_str(), "minimizedX", to_string<unsigned int>(GetMinimizedX()).c_str(), string(BH::path + "UI.ini").c_str());
+	WritePrivateProfileString(name.c_str(), "minimizedY", to_string<unsigned int>(GetMinimizedY()).c_str(), string(BH::path + "UI.ini").c_str());
 
 	while(Tabs.size() > 0) {
 		delete (*Tabs.begin());
@@ -172,11 +178,10 @@ void UI::SetDragged(bool state, bool write_file) {
 	Lock(); 
 	dragged = state; 
 	if (!state && write_file) {
-		App.bhui.openedX.value = GetX();
-		App.bhui.openedY.value = GetY();
-		App.bhui.minimizedX.value = GetMinimizedX();
-		App.bhui.minimizedY.value = GetMinimizedY();
-		App.config->SaveConfig();
+		WritePrivateProfileString(name.c_str(), "X", to_string<unsigned int>(GetX()).c_str(), string(BH::path + "UI.ini").c_str());
+		WritePrivateProfileString(name.c_str(), "Y", to_string<unsigned int>(GetY()).c_str(), string(BH::path + "UI.ini").c_str());
+		WritePrivateProfileString(name.c_str(), "minimizedX", to_string<unsigned int>(GetMinimizedX()).c_str(), string(BH::path + "UI.ini").c_str());
+		WritePrivateProfileString(name.c_str(), "minimizedY", to_string<unsigned int>(GetMinimizedY()).c_str(), string(BH::path + "UI.ini").c_str());
 	}
 	Unlock(); 
 }
@@ -191,11 +196,11 @@ void UI::SetMinimized(bool newState) {
 	Lock();  
 	if (newState) {
 		Minimized.push_back(this);
+		BH::config->Write();
 	} else
-		Minimized.remove(this);
-	minimized = newState;
-	App.bhui.isMinimized.value = newState;
-	App.config->SaveConfig();
+		Minimized.remove(this); 
+	minimized = newState; 
+	WritePrivateProfileString(name.c_str(), "Minimized", to_string<bool>(newState).c_str(), string(BH::path + "UI.ini").c_str());
 	Unlock(); 
 };
 
@@ -258,7 +263,7 @@ bool UI::OnLeftClick(bool up, unsigned int mouseX, unsigned int mouseY) {
 			SetDragged(false, true);
 			if( startX == mouseX && startY == mouseY && GetAsyncKeyState(VK_CONTROL) )
 			{
-				PrintText(135, "Right Click or ESC to Close");
+				PrintText(135, "Right Click to Close" );
 			}
 		}
 		SetActive(true);

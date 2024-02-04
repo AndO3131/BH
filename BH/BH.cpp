@@ -12,13 +12,17 @@
 string BH::path;
 HINSTANCE BH::instance;
 ModuleManager* BH::moduleManager;
+Config* BH::config;
 Config* BH::lootFilter;
 Drawing::UI* BH::settingsUI;
 Drawing::StatsDisplay* BH::statsDisplay;
 bool BH::initialized;
 bool BH::cGuardLoaded;
 WNDPROC BH::OldWNDPROC;
-BHApp App;
+//map<string, Toggle>* BH::MiscToggles;
+map<string, Toggle>* BH::MiscToggles2;
+map<string, bool>* BH::BnetBools;
+map<string, bool>* BH::GamefilterBools;
 
 Patch* patches[] = {
 	new Patch(Call, D2CLIENT, { 0x44230, 0x45280 }, (int)GameLoop_Interception, 7),
@@ -67,8 +71,16 @@ bool BH::Startup(HINSTANCE instance, VOID* reserved) {
 void BH::Initialize()
 {
 	moduleManager = new ModuleManager();
-	App.config = new Config(App.jsonFile);
-	App.config->LoadConfig();
+	config = new Config("ProjectDiablo.cfg");
+	if (!config->Parse()) {
+		config->SetConfigName("ProjectDiablo_Default.cfg");
+		if (!config->Parse()) {
+			string msg = "Could not find ProjectDiablo config.\nAttempted to load " +
+				path + "ProjectDiablo.cfg (failed).\nAttempted to load " +
+				path + "ProjectDiablo_Default.cfg (failed).\n\nDefaults loaded.";
+			MessageBox(NULL, msg.c_str(), "Failed to load ProjectDiablo config", MB_OK);
+		}
+	}
 
 	lootFilter = new Config("loot.filter");
 	if (!lootFilter->Parse()) {
@@ -93,7 +105,7 @@ void BH::Initialize()
 		SetWindowLong(D2GFX_GetHwnd(), GWL_WNDPROC, (LONG)GameWindowEvent);
 		});
 
-	settingsUI = new Drawing::UI(SETTINGS_TEXT, App.bhui.sizeX.value, App.bhui.sizeY.value);
+	settingsUI = new Drawing::UI(SETTINGS_TEXT, 400, 366);
 
 	Task::InitializeThreadPool(2);
 
@@ -108,9 +120,14 @@ void BH::Initialize()
 	new MapNotify();
 	new ChatColor();
 
+	BnetBools = ((Bnet*)moduleManager->Get("bnet"))->GetBools();
+	GamefilterBools = ((Gamefilter*)moduleManager->Get("gamefilter"))->GetBools();
+
 	moduleManager->LoadModules();
 
 	statsDisplay = new Drawing::StatsDisplay("Stats");
+
+	MiscToggles2 = ((Item*)moduleManager->Get("item"))->GetToggles();
 
 	// Injection would occasionally deadlock (I only ever saw it when using Tabbed Diablo
 	// but theoretically it could happen during regular injection):
@@ -143,6 +160,7 @@ bool BH::Shutdown() {
 		}
 
 		oogDraw->Remove();
+		delete config;
 	}
 
 	return true;
@@ -151,10 +169,10 @@ bool BH::Shutdown() {
 bool BH::ReloadConfig() {
 	if (initialized) {
 		if (D2CLIENT_GetPlayerUnit()) {
-			PrintText(0, "Reloading config: %s", App.config->GetConfigName().c_str());
+			PrintText(0, "Reloading config: %s", config->GetConfigName().c_str());
 			PrintText(0, "Reloading filter: %s", lootFilter->GetConfigName().c_str());
 		}
-		App.config->LoadConfig();
+		config->Parse();
 		lootFilter->Parse();
 		moduleManager->ReloadConfig();
 		statsDisplay->LoadConfig();

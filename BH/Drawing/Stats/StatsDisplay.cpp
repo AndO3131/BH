@@ -227,10 +227,14 @@ void StatsDisplay::LoadConfig()
 	int height = 342 + 8 * 7 + 16 * 10;
 	customStats.clear();
 
-	for (map<string, string>::iterator it = App.screen.additionalStats.values.begin(); it != App.screen.additionalStats.values.end(); it++)
+	BH::config->ReadToggle("Stats on Right", "None", false, Toggles["Stats on Right"]);
+
+	vector<pair<string, string>> stats;
+	BH::config->ReadMapList("Stat Screen", stats);
+	for (unsigned int i = 0; i < stats.size(); i++)
 	{
 		int statId = -1;
-		stringstream ss(Trim((*it).first));
+		stringstream ss(Trim(stats[i].first));
 		if (!(ss >> statId).fail() && statId < STAT_MAX)
 		{
 			DisplayedStat* customStat = new DisplayedStat();
@@ -240,7 +244,7 @@ void StatsDisplay::LoadConfig()
 			// Getting rid of the check for sp->saveParamBits > 0 to display weapon mastery values
 			// if a param is supplied it will be used
 			int          num = -1;
-			stringstream ss(Trim((*it).second));
+			stringstream ss(Trim(stats[i].second));
 			if (!(ss >> num).fail() && num > 0)
 			{
 				customStat->useValue = true;
@@ -251,7 +255,7 @@ void StatsDisplay::LoadConfig()
 	}
 	if (customStats.size() > 0) { height += (customStats.size() * 16) + 8; }
 
-	int xPos = App.general.statsOnRight.toggle.isEnabled ? *p_D2CLIENT_ScreenSizeX - 10 - GetXSize() : 10;
+	int xPos = Toggles["Stats on Right"].state ? *p_D2CLIENT_ScreenSizeX - 10 - GetXSize() : 10;
 	SetX(xPos);
 	SetYSize(height);
 }
@@ -322,7 +326,7 @@ void StatsDisplay::OnDraw()
 
 	if (!IsMinimized())
 	{
-		int xPos = App.general.statsOnRight.toggle.isEnabled ? *p_D2CLIENT_ScreenSizeX - 10 - GetXSize() : 10;
+		int xPos = Toggles["Stats on Right"].state ? *p_D2CLIENT_ScreenSizeX - 10 - GetXSize() : 10;
 		SetX(xPos);
 
 		if (D2CLIENT_GetUIState(UI_MERC))
@@ -933,8 +937,9 @@ bool StatsDisplay::OnKey(bool   up,
 	UnitAny* unit = D2CLIENT_GetPlayerUnit();
 	if (!unit)
 		return false;
+	GameSettings* settings = static_cast<GameSettings*>(BH::moduleManager->Get("gamesettings"));
 	//Resync
-	if (!up && kkey == App.game.resyncHotkey.hotkey)
+	if (!up && kkey == settings->resyncKey)
 	{
 		DWORD curTime = GetTickCount64();
 		if (curTime >= syncCooldown)
@@ -945,7 +950,7 @@ bool StatsDisplay::OnKey(bool   up,
 	}
 	if (IsMinimized())
 	{
-		if (!up && kkey == App.game.characterStats.hotkey)
+		if (!up && kkey == settings->advStatMenuKey)
 		{
 			LoadConfig();
 			SetMinimized(false);
@@ -954,7 +959,7 @@ bool StatsDisplay::OnKey(bool   up,
 	}
 	else
 	{
-		if (!up && (kkey == App.game.characterStats.hotkey || kkey == VK_ESCAPE))
+		if (!up && (kkey == settings->advStatMenuKey || kkey == VK_ESCAPE))
 		{
 			SetMinimized(true);
 			return true;

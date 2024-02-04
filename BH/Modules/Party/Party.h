@@ -10,6 +10,7 @@
 
 class Party : public Module {
 	private:
+		map<std::string, Toggle> Toggles;
 		map<std::string, bool> LootingPermission;
 		void CheckParty();
 		int c;

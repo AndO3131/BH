@@ -19,6 +19,8 @@ class StashExport : public Module {
 private:
 
 	string dfltExprt;
+	map<string, string> mustaches;
+	unsigned int exportGear;
 	unsigned int exportType;
 	static UnitAny* viewingUnit;
 	Drawing::UITab* settingsTab;
@@ -26,6 +28,7 @@ private:
 
 	static void fillStats(JSONArray* statsArray, ItemsTxtStat *itemDef, UnitAny* pItem, int maxProps);
 public:
+	static map<std::string, Toggle> Toggles;
 	static map<std::string, std::unique_ptr<Mustache::AMustacheTemplate>> MustacheTemplates;
 
 	StashExport() : Module("StashExport"), exportType(0) { dfltExprt = "json"; };
@@ -39,6 +42,7 @@ public:
 	void OnKey(bool up, BYTE key, LPARAM lParam, bool* block);
 	void WriteStash();
 	void CopyItemJSONToClipboard();
+	std::map<string, Toggle>* GetToggles() { return &Toggles; }
 	static void GetItemInfo(UnitAny* pItem, JSONObject* pBuffer);
 	static JSONObject* getStatEntry(WORD statId, WORD statId2, DWORD statVal, DWORD min, DWORD max);
 };
