@@ -436,7 +436,7 @@ bool Config::Parse() {
 		return false;
 
 	//Open the configuration file
-	wfstream file(BH::path + configName);
+	fstream file(BH::path + configName);
 	if (!file.is_open())
 		return false;
 
@@ -445,15 +445,15 @@ bool Config::Parse() {
 	orderedKeyVals.clear();
 
 	//Begin to loop the configuration file one line at a time.
-	std::wstring line;
+	std::string line;
 	int lineNo = 0;
 	while (std::getline(file, line)) {
 		lineNo++;
 		std::wstring comment;
 		//Remove any comments from the config
-		if (line.find(L"//") != wstring::npos) {
-			comment = line.substr(line.find(L"//"));
-			line = line.erase(line.find(L"//"));
+		if (line.find("//") != string::npos) {
+			comment = AnsiToUnicode(line.substr(line.find("//")).c_str());
+			line = line.erase(line.find("//"));
 		}
 
 		//Insure we have something in the line now.
@@ -464,10 +464,10 @@ bool Config::Parse() {
 
 		ConfigEntry entry;
 		entry.line = lineNo;
-		entry.key = Trim(line.substr(0, line.find_first_of(L":")));
-		entry.value = Trim(line.substr(line.find_first_of(L":") + 1));
+		entry.key = Trim(AnsiToUnicode(line.substr(0, line.find_first_of(":")).c_str()));
+		entry.value = Trim(AnsiToUnicode(line.substr(line.find_first_of(":") + 1).c_str()));
 
-		entry.comment = line.substr(line.find_first_of(L":") + 1, line.find(entry.value) - line.find_first_of(L":") - 1);
+		entry.comment = AnsiToUnicode(line.substr(line.find_first_of(":") + 1, line.find(UnicodeToAnsi(entry.value.c_str())) - line.find_first_of(":") - 1).c_str());
 		entry.pointer = NULL;
 
 		//Store them!

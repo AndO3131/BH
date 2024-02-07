@@ -1290,7 +1290,7 @@ void SubstituteNameVariables(UnitItemInfo* uInfo,
 		uInfo->itemCode[1] == 'b' &&
 		uInfo->itemCode[2] == 'k' ? BOOK_NAME_SIZE_LIMIT : MAX_ITEM_TEXT_SIZE;
 	if (name.size() > lengthLimit - 1) { name.resize(lengthLimit - 1); }
-	PrintText(3, "\xc3\xbf\x63\x30 testing ÿc5 ąśćźżńó生命值"); // for testing purposes
+//	PrintText(3, "\xc3\xbf\x63\x32 testing ÿc5 ąśćźżńó生命值"); // for testing purposes
 }
 
 BYTE GetAffixLevel(BYTE ilvl,
