@@ -548,6 +548,7 @@ enum FilterCondition
 	COND_PRICE,
 	COND_ITEMCODE,
 	COND_ADD,
+	COND_LANG,
 
 	COND_NULL
 };
@@ -700,6 +701,7 @@ std::map<std::string, FilterCondition> condition_map =
 	{"WP13", COND_SCEPTER},
 	{"ALLSK", COND_ALLSK},
 	{"PRICE", COND_PRICE},
+	{"LANG", COND_LANG},
 	// These have a number as part of the key, handled separately
 	//{"SK", COND_SK},
 	//{"OS", COND_OS},
@@ -741,6 +743,23 @@ std::map<std::string, int> stat_id_map =
 	{"REPLIFE", STAT_REPLENISHLIFE},
 	{"REPQUANT", STAT_REPLENISHESQUANTITY},
 	{"REPAIR", STAT_REPAIRSDURABILITY},
+};
+
+char* lang_to_int[] =
+{
+	"ENG",
+	"ESP",
+	"DEU",
+	"FRA",
+	"POR",
+	"ITA",
+	"JPN",
+	"KOR",
+	"SIN",
+	"CHI",
+	"POL",
+	"RUS",
+	"ENG"
 };
 
 SkillReplace skills[] = {
@@ -1291,6 +1310,7 @@ void SubstituteNameVariables(UnitItemInfo* uInfo,
 		uInfo->itemCode[2] == 'k' ? BOOK_NAME_SIZE_LIMIT : MAX_ITEM_TEXT_SIZE;
 	if (name.size() > lengthLimit - 1) { name.resize(lengthLimit - 1); }
 //	PrintText(3, "\xc3\xbf\x63\x32 testing ÿc5 ąśćźżńó生命值"); // for testing purposes
+//	PrintText(3, "%s", lang_to_int[*p_D2LANG_ActiveLangage]);
 }
 
 BYTE GetAffixLevel(BYTE ilvl,
@@ -2168,6 +2188,9 @@ void Condition::BuildConditions(vector<Condition*>& conditions,
 	case COND_ADD:
 		Condition::AddOperand(conditions, new AddCondition(key, operation, value));
 		break;
+//	case COND_LANG:
+//		Condition::AddOperand(conditions, new FilterLevelCondition(operation, value, value2));
+//		break;
 
 	case COND_NULL:
 		break;
