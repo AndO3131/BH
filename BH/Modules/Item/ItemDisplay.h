@@ -50,9 +50,9 @@ public:
 	{
 	}
 
-	static const string tokenDelims;
+	static const wstring tokenDelims;
 	static void         BuildConditions(vector<Condition*>& conditions,
-		string              token);
+		wstring              token);
 	static void ProcessConditions(vector<Condition*>& rawConditions,
 		vector<Condition*>& processedConditions);
 	static void AddOperand(vector<Condition*>& conditions,
@@ -790,7 +790,7 @@ extern FalseCondition* falseCondition;
 
 struct ActionReplace
 {
-	string key;
+	wstring key;
 	string value;
 };
 
@@ -841,7 +841,7 @@ struct Rule
 	vector<Condition*> conditionStack;
 
 	Rule(vector<Condition*>& inputConditions,
-		string* str);
+		wstring* str);
 
 	// TODO: Should this really be defined in the header? This will force it to be inlined AFAIK. -ybd
 	// Evaluate conditions which are in Reverse Polish Notation
@@ -926,13 +926,13 @@ public:
 	}
 };
 
-extern vector<Rule*>                RuleList;
-extern vector<Rule*>                MapRuleList;
-extern vector<Rule*>                IgnoreRuleList;
-extern vector<pair<string, string>> rules;
-extern ItemDescLookupCache          item_desc_cache;
-extern ItemNameLookupCache          item_name_cache;
-extern MapActionLookupCache         map_action_cache;
+extern vector<Rule*>                  RuleList;
+extern vector<Rule*>                  MapRuleList;
+extern vector<Rule*>                  IgnoreRuleList;
+extern vector<pair<wstring, wstring>> rules;
+extern ItemDescLookupCache            item_desc_cache;
+extern ItemNameLookupCache            item_name_cache;
+extern MapActionLookupCache           map_action_cache;
 
 namespace ItemDisplay
 {

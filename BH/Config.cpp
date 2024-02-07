@@ -436,7 +436,7 @@ bool Config::Parse() {
 		return false;
 
 	//Open the configuration file
-	fstream file(BH::path + configName);
+	wfstream file(BH::path + configName);
 	if (!file.is_open())
 		return false;
 
@@ -445,15 +445,15 @@ bool Config::Parse() {
 	orderedKeyVals.clear();
 
 	//Begin to loop the configuration file one line at a time.
-	std::string line;
+	std::wstring line;
 	int lineNo = 0;
 	while (std::getline(file, line)) {
 		lineNo++;
-		std::string comment;
+		std::wstring comment;
 		//Remove any comments from the config
-		if (line.find("//") != string::npos) {
-			comment = line.substr(line.find("//"));
-			line = line.erase(line.find("//"));
+		if (line.find(L"//") != wstring::npos) {
+			comment = line.substr(line.find(L"//"));
+			line = line.erase(line.find(L"//"));
 		}
 
 		//Insure we have something in the line now.
@@ -464,15 +464,15 @@ bool Config::Parse() {
 
 		ConfigEntry entry;
 		entry.line = lineNo;
-		entry.key = Trim(line.substr(0, line.find_first_of(":")));
-		entry.value = Trim(line.substr(line.find_first_of(":") + 1));
+		entry.key = Trim(line.substr(0, line.find_first_of(L":")));
+		entry.value = Trim(line.substr(line.find_first_of(L":") + 1));
 
-		entry.comment = line.substr(line.find_first_of(":") + 1, line.find(entry.value) - line.find_first_of(":") - 1);
+		entry.comment = line.substr(line.find_first_of(L":") + 1, line.find(entry.value) - line.find_first_of(L":") - 1);
 		entry.pointer = NULL;
 
 		//Store them!
-		contents.insert(pair<string, ConfigEntry>(entry.key, entry));
-		orderedKeyVals.push_back(pair<string, string>(entry.key, entry.value));
+		contents.insert(pair<wstring, ConfigEntry>(entry.key, entry));
+		orderedKeyVals.push_back(pair<wstring, wstring>(entry.key, entry.value));
 	}
 	file.close();
 	return true;
@@ -486,13 +486,13 @@ void Config::SetConfigName(std::string name) {
 	configName = name;
 }
 
-vector<pair<string, string>> Config::ReadMapList(std::string key, vector<pair<string, string>>& values) {
+vector<pair<wstring, wstring>> Config::ReadMapList(std::wstring key, vector<pair<wstring, wstring>>& values) {
 
-	for (vector<pair<string, string>>::iterator it = orderedKeyVals.begin(); it != orderedKeyVals.end(); it++) {
-		if (!(*it).first.find(key + "[")) {
-			pair<string, string> assoc;
+	for (vector<pair<wstring, wstring>>::iterator it = orderedKeyVals.begin(); it != orderedKeyVals.end(); it++) {
+		if (!(*it).first.find(key + L"[")) {
+			pair<wstring, wstring> assoc;
 			//Pull the value from between the []'s
-			assoc.first = (*it).first.substr((*it).first.find("[") + 1, (*it).first.length() - (*it).first.find("[") - 2);
+			assoc.first = (*it).first.substr((*it).first.find(L"[") + 1, (*it).first.length() - (*it).first.find(L"[") - 2);
 			//Also store the value
 			assoc.second = (*it).second;
 			values.push_back(assoc);

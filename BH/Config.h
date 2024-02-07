@@ -78,9 +78,9 @@ enum ConfigType {
 class ConfigEntry {
 public:
 	ConfigType type;
-	std::string key;
-	std::string value;
-	std::string comment;
+	std::wstring key;
+	std::wstring value;
+	std::wstring comment;
 	int line;
 	void* pointer;
 	Toggle* toggle;
@@ -99,8 +99,8 @@ class Config {
 private:
 	std::string configName;
 	// Only used in lootfilter Parse()
-	std::map<std::string, ConfigEntry> contents;
-	vector<pair<string, string>> orderedKeyVals;
+	std::map<std::wstring, ConfigEntry> contents;
+	vector<pair<wstring, wstring>> orderedKeyVals;
 public:
 	void SaveConfig();
 	void LoadConfig();
@@ -121,5 +121,5 @@ public:
 
 	// Functions to read values from the lootfilter configuration
 	bool Parse();
-	vector<pair<string, string>> ReadMapList(std::string key, vector<pair<string,string>>& value);
+	vector<pair<wstring, wstring>> ReadMapList(std::wstring key, vector<pair<wstring,wstring>>& value);
 };

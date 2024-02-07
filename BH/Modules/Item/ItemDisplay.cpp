@@ -29,42 +29,42 @@
 // For ignoring size
 std::vector<std::string> colorreps =
 {
-	"ÿc0",
-	"ÿc1",
-	"ÿc2",
-	"ÿc3",
-	"ÿc4",
-	"ÿc5",
-	"ÿc6",
-	"ÿc7",
-	"ÿc8",
-	"ÿc9",
-	"ÿc;",
-	"ÿc:",
-	"\xFF""c\x06",
-	"\xFF""c\x07",
-	"\xFF""c\x09",
-	"\xFF""c\x0C"
+	"\xc3\xbf\x63\x30",
+	"\xc3\xbf\x63\x31",
+	"\xc3\xbf\x63\x32",
+	"\xc3\xbf\x63\x33",
+	"\xc3\xbf\x63\x34",
+	"\xc3\xbf\x63\x35",
+	"\xc3\xbf\x63\x36",
+	"\xc3\xbf\x63\x37",
+	"\xc3\xbf\x63\x38",
+	"\xc3\xbf\x63\x39",
+	"\xc3\xbf\x63\x3b",
+	"\xc3\xbf\x63\x3a",
+	"\xc3\xbf\x63\x06",
+	"\xc3\xbf\x63\x07",
+	"\xc3\xbf\x63\x09",
+	"\xc3\xbf\x63\x0C"
 };
 
 // All colors here must also be defined in MAP_COLOR_REPLACEMENTS
 #define COLOR_REPLACEMENTS	\
-	{"WHITE", "ÿc0"},		\
-	{"RED", "ÿc1"},			\
-	{"GREEN", "ÿc2"},		\
-	{"BLUE", "ÿc3"},		\
-	{"GOLD", "ÿc4"},		\
-	{"GRAY", "ÿc5"},		\
-	{"BLACK", "ÿc6"},		\
-	{"TAN", "ÿc7"},			\
-	{"ORANGE", "ÿc8"},		\
-	{"YELLOW", "ÿc9"},		\
-	{"PURPLE", "ÿc;"},		\
-	{"DARK_GREEN", "ÿc:"},	\
-	{"CORAL", "\xFF" "c\x06"},		\
-	{"SAGE", "\xFF" "c\x07"},		\
-	{"TEAL", "\xFF" "c\x09"},		\
-	{"LIGHT_GRAY", "\xFF" "c\x0C"}
+	{L"WHITE", "\xc3\xbf\x63\x30"},		\
+	{L"RED", "\xc3\xbf\x63\x31"},		\
+	{L"GREEN", "\xc3\xbf\x63\x32"},		\
+	{L"BLUE", "\xc3\xbf\x63\x33"},		\
+	{L"GOLD", "\xc3\xbf\x63\x34"},		\
+	{L"GRAY", "\xc3\xbf\x63\x35"},		\
+	{L"BLACK", "\xc3\xbf\x63\x36"},		\
+	{L"TAN", "\xc3\xbf\x63\x37"},			\
+	{L"ORANGE", "\xc3\xbf\x63\x38"},		\
+	{L"YELLOW", "\xc3\xbf\x63\x39"},		\
+	{L"PURPLE", "\xc3\xbf\x63\x3b"},		\
+	{L"DARK_GREEN", "\xc3\xbf\x63\x3a"},	\
+	{L"CORAL", "\xc3\xbf\x63\x06"},		\
+	{L"SAGE", "\xc3\xbf\x63\x07"},		\
+	{L"TEAL", "\xc3\xbf\x63\x09"},		\
+	{L"LIGHT_GRAY", "\xc3\xbf\x63\x0C"}
 
 #define MAP_COLOR_WHITE     0x20
 
@@ -748,7 +748,7 @@ SkillReplace skills[] = {
 };
 
 std::map<std::string, int>   UnknownItemCodes;
-vector<pair<string, string>> rules;
+vector<pair<wstring, wstring>> rules;
 vector<Rule*>                RuleList;
 vector<Rule*>                MapRuleList;
 vector<Rule*>                IgnoreRuleList;
@@ -1037,50 +1037,50 @@ void SubstituteNameVariables(UnitItemInfo* uInfo,
 		sprintf_s(gemtype, "%s", GetGemTypeString(GetGemType(uInfo->attrs)));
 	}
 	ActionReplace replacements[] = {
-		{ "NAME", origName },
-		{ "SOCKETS", sockets },
-		{ "RUNENUM", runenum },
-		{ "RUNENAME", runename },
-		{ "GEMLEVEL", gemlevel },
-		{ "GEMTYPE", gemtype },
-		{ "ILVL", ilvl },
-		{ "ALVL", alvl },
-		{ "CRAFTALVL", craftalvl },
-		{ "LVLREQ", lvlreq },
-		{ "WPNSPD", wpnspd },
-		{ "RANGE", rangeadder },
-		{ "CODE", code },
-		{ "NL", "\n" },
-		{ "PRICE", sellValue },
-		{ "QTY", qty },
-		{ "RES", allres},
-		{ "ED", ed},
+		{ L"NAME", origName },
+		{ L"SOCKETS", sockets },
+		{ L"RUNENUM", runenum },
+		{ L"RUNENAME", runename },
+		{ L"GEMLEVEL", gemlevel },
+		{ L"GEMTYPE", gemtype },
+		{ L"ILVL", ilvl },
+		{ L"ALVL", alvl },
+		{ L"CRAFTALVL", craftalvl },
+		{ L"LVLREQ", lvlreq },
+		{ L"WPNSPD", wpnspd },
+		{ L"RANGE", rangeadder },
+		{ L"CODE", code },
+		{ L"NL", "\n" },
+		{ L"PRICE", sellValue },
+		{ L"QTY", qty },
+		{ L"RES", allres},
+		{ L"ED", ed},
 		COLOR_REPLACEMENTS
 	};
 	int nColorCodesSize = 0;
 	name.assign(action_name);
 	for (int n = 0; n < sizeof(replacements) / sizeof(replacements[0]); n++)
 	{
-		while (name.find("%" + replacements[n].key + "%") != string::npos)
+		while (name.find("%" + (string)UnicodeToAnsi(replacements[n].key.c_str()) + "%") != string::npos)
 		{
-			if (bLimit && replacements[n].key == "NL")
+			if (bLimit && replacements[n].key == L"NL")
 			{
 				// Allow %NL% on identified, magic+ item names, and items within shops
 				if ((uInfo->item->pItemData->dwFlags & ITEM_IDENTIFIED) > 0 &&
 					(uInfo->item->pItemData->dwQuality >= ITEM_QUALITY_MAGIC || (uInfo->item->pItemData->dwFlags & ITEM_RUNEWORD) > 0) ||
 					inShop)
 				{
-					name.replace(name.find("%" + replacements[n].key + "%"), replacements[n].key.length() + 2, replacements[n].value);
+					name.replace(name.find("%" + (string)UnicodeToAnsi(replacements[n].key.c_str()) + "%"), replacements[n].key.length() + 2, replacements[n].value);
 				}
 				// Remove it on everything else
 				else
 				{
-					name.replace(name.find("%" + replacements[n].key + "%"), replacements[n].key.length() + 2, "");
+					name.replace(name.find("%" + (string)UnicodeToAnsi(replacements[n].key.c_str()) + "%"), replacements[n].key.length() + 2, "");
 				}
 			}
 			else
 			{
-				name.replace(name.find("%" + replacements[n].key + "%"), replacements[n].key.length() + 2, replacements[n].value);
+				name.replace(name.find("%" + (string)UnicodeToAnsi(replacements[n].key.c_str()) + "%"), replacements[n].key.length() + 2, replacements[n].value);
 			}
 		}
 	}
@@ -1290,6 +1290,7 @@ void SubstituteNameVariables(UnitItemInfo* uInfo,
 		uInfo->itemCode[1] == 'b' &&
 		uInfo->itemCode[2] == 'k' ? BOOK_NAME_SIZE_LIMIT : MAX_ITEM_TEXT_SIZE;
 	if (name.size() > lengthLimit - 1) { name.resize(lengthLimit - 1); }
+	PrintText(3, "\xc3\xbf\x63\x30 testing ÿc5 ąśćźżńó生命值"); // for testing purposes
 }
 
 BYTE GetAffixLevel(BYTE ilvl,
@@ -1387,17 +1388,17 @@ namespace ItemDisplay
 		item_display_initialized = true;
 		rules.clear();
 		ResetCaches();
-		BH::lootFilter->ReadMapList("ItemDisplay", rules);
+		BH::lootFilter->ReadMapList(L"ItemDisplay", rules);
 		for (unsigned int i = 0; i < rules.size(); i++)
 		{
-			string         buf;
-			stringstream   ss(rules[i].first);
-			vector<string> tokens;
+			wstring         buf;
+			wstringstream   ss(rules[i].first);
+			vector<wstring> tokens;
 			while (ss >> buf) { tokens.push_back(buf); }
 
 			LastConditionType = CT_None;
 			vector<Condition*> RawConditions;
-			for (vector<string>::iterator tok = tokens.begin(); tok < tokens.end(); tok++) { Condition::BuildConditions(RawConditions, (*tok)); }
+			for (vector<wstring>::iterator tok = tokens.begin(); tok < tokens.end(); tok++) { Condition::BuildConditions(RawConditions, (*tok)); }
 			Rule* r = new Rule(RawConditions, &(rules[i].second));
 
 			RuleList.push_back(r);
@@ -1418,10 +1419,10 @@ namespace ItemDisplay
 		item->ItemFilterNames.clear();
 		item->ItemFilterNames.push_back("0 - Show All Items");
 
-		vector<pair<string, string>> filterDefinitions;
-		BH::lootFilter->ReadMapList("ItemDisplayFilterName", filterDefinitions);
+		vector<pair<wstring, wstring>> filterDefinitions;
+		BH::lootFilter->ReadMapList(L"ItemDisplayFilterName", filterDefinitions);
 		for (unsigned int i = 0; i < filterDefinitions.size(); i++) {
-			item->ItemFilterNames.push_back(to_string(i + 1) + " - " + filterDefinitions[i].second);
+			item->ItemFilterNames.push_back(to_string(i + 1) + " - " + UnicodeToAnsi(filterDefinitions[i].second.c_str()));
 
 			// Max 9 entries
 			if (i >= 8) {
@@ -1458,10 +1459,10 @@ namespace ItemDisplay
 }
 
 Rule::Rule(vector<Condition*>& inputConditions,
-	string* str)
+	wstring* str)
 {
 	Condition::ProcessConditions(inputConditions, conditions);
-	BuildAction(str, &action);
+	BuildAction(&(string)UnicodeToAnsi(str->c_str()), &action);
 	conditionStack.reserve(conditions.size()); // TODO: too large?
 }
 
@@ -1583,7 +1584,7 @@ int ParseMapColor(Action* act,
 	return color;
 }
 
-const string Condition::tokenDelims = "<=>~";
+const wstring Condition::tokenDelims = L"<=>~";
 
 // Implements the shunting-yard algorithm to evaluate condition expressions
 // Returns a vector of conditions in Reverse Polish Notation
@@ -1652,7 +1653,7 @@ void Condition::ProcessConditions(vector<Condition*>& inputConditions,
 }
 
 void Condition::BuildConditions(vector<Condition*>& conditions,
-	string              token)
+	wstring              token)
 {
 	vector<Condition*> endConditions;
 	int                i;
@@ -1663,9 +1664,9 @@ void Condition::BuildConditions(vector<Condition*>& conditions,
 	// Look for syntax characters at the beginning of the token
 	for (i = 0; i < (int)token.length(); i++)
 	{
-		if (token[i] == '!') { Condition::AddNonOperand(conditions, new NegationOperator()); }
-		else if (token[i] == '(') { Condition::AddNonOperand(conditions, new LeftParen()); }
-		else if (token[i] == ')') { Condition::AddNonOperand(conditions, new RightParen()); }
+		if (token[i] == L'!') { Condition::AddNonOperand(conditions, new NegationOperator()); }
+		else if (token[i] == L'(') { Condition::AddNonOperand(conditions, new LeftParen()); }
+		else if (token[i] == L')') { Condition::AddNonOperand(conditions, new RightParen()); }
 		else { break; }
 	}
 	token.erase(0, i);
@@ -1673,39 +1674,39 @@ void Condition::BuildConditions(vector<Condition*>& conditions,
 	// Look for syntax characters at the end of the token
 	for (i = token.length() - 1; i >= 0; i--)
 	{
-		if (token[i] == '!') { endConditions.insert(endConditions.begin(), new NegationOperator()); }
-		else if (token[i] == '(') { endConditions.insert(endConditions.begin(), new LeftParen()); }
-		else if (token[i] == ')') { endConditions.insert(endConditions.begin(), new RightParen()); }
+		if (token[i] == L'!') { endConditions.insert(endConditions.begin(), new NegationOperator()); }
+		else if (token[i] == L'(') { endConditions.insert(endConditions.begin(), new LeftParen()); }
+		else if (token[i] == L')') { endConditions.insert(endConditions.begin(), new RightParen()); }
 		else { break; }
 	}
-	if (i < (int)(token.length() - 1)) { token.erase(i + 1, string::npos); }
+	if (i < (int)(token.length() - 1)) { token.erase(i + 1, wstring::npos); }
 
 	size_t delPos = token.find_first_of(tokenDelims);
 	string key;
 	string delim = "";
 	int    value = 0;
 	int    value2 = 0;
-	if (delPos != string::npos)
+	if (delPos != wstring::npos)
 	{
-		key = Trim(token.substr(0, delPos));
-		delim = token.substr(delPos, 1);
-		string valueStr = Trim(token.substr(delPos + 1));
+		key = UnicodeToAnsi(Trim(token.substr(0, delPos)).c_str());
+		delim = UnicodeToAnsi(token.substr(delPos, 1).c_str());
+		wstring valueStr = Trim(token.substr(delPos + 1));
 		if (valueStr.length() > 0)
 		{
 			// Get min/max values if a range is given
-			if (delim == "~" && valueStr.find("-") != string::npos)
+			if (delim == "~" && valueStr.find(L"-") != wstring::npos)
 			{
-				auto rangeDelim = valueStr.find("-");
-				stringstream ss1(valueStr.substr(0, rangeDelim));
+				auto rangeDelim = valueStr.find(L"-");
+				wstringstream ss1(valueStr.substr(0, rangeDelim));
 				valueStr.erase(0, rangeDelim + 1);
-				stringstream ss2(valueStr);
+				wstringstream ss2(valueStr);
 				if ((ss1 >> value).fail() || (ss2 >> value2).fail())
 				{
 					return; // TODO: returning errors
 				}
 			}
 			else {
-				stringstream ss(valueStr);
+				wstringstream ss(valueStr);
 				if ((ss >> value).fail())
 				{
 					return; // TODO: returning errors
@@ -1713,7 +1714,7 @@ void Condition::BuildConditions(vector<Condition*>& conditions,
 			}
 		}
 	}
-	else { key = token; }
+	else { key = UnicodeToAnsi(token.c_str()); }
 
 	BYTE operation = GetOperation(&delim);
 	unsigned int keylen = key.length();

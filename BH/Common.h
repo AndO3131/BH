@@ -72,6 +72,7 @@ bool StringToBool(std::string str);
 int StringToNumber(std::string str);
 
 std::string Trim(std::string source);
+std::wstring Trim(std::wstring source);
 
 void PrintText(DWORD Color, char* szText, ...);
 
